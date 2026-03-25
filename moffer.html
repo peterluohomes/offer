@@ -28,6 +28,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);
 .btn-gold{background:var(--gold);color:var(--navy)}
 .btn-outline{background:transparent;border:1.5px solid var(--gold);color:var(--gold)}
 .btn-navy{background:var(--navy);color:var(--gold)}
+.save-indicator{font-size:10px;color:var(--muted);display:flex;align-items:center;gap:4px;padding:0 8px}
+.save-indicator.saved{color:#2ecc71}
 
 /* Table */
 .scroll-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
@@ -82,11 +84,12 @@ table.mt input.mono{font-family:'DM Mono',monospace;font-size:11px}
 
 <div class="toolbar">
   <button class="btn btn-navy" onclick="addOffer()">+ Add Offer</button>
-  <button class="btn btn-outline" onclick="saveAll()">💾 Save</button>
-  <button class="btn btn-outline" onclick="document.getElementById('ld').click()">📂 Load</button>
-  <input type="file" id="ld" accept=".json" style="display:none" onchange="loadAll(event)">
+  <button class="btn btn-outline" onclick="exportJSON()">📤 Export JSON</button>
+  <button class="btn btn-outline" onclick="document.getElementById('ld').click()">📂 Import JSON</button>
+  <input type="file" id="ld" accept=".json" style="display:none" onchange="importJSON(event)">
   <button class="btn btn-outline" onclick="clearAll()">🗑 Clear</button>
   <button class="btn btn-gold" onclick="prepPrint()">🖨 Print</button>
+  <span class="save-indicator" id="save-status">●  Auto-save off</span>
 </div>
 
 <div class="scroll-wrap">
@@ -99,6 +102,106 @@ table.mt input.mono{font-family:'DM Mono',monospace;font-size:11px}
 <div class="page-footer"><span><strong>Peter Luo</strong> · RE/MAX Realtron Realty Inc., Brokerage</span><span>647-824-3718</span></div>
 
 <script>
+/* ===== IndexedDB Layer ===== */
+var DB_NAME='PinnacleOffers';
+var DB_VERSION=1;
+var STORE_NAME='multiOffers';
+var RECORD_KEY='current';
+var db=null;
+var saveTimer=null;
+
+function openDB(){
+  return new Promise(function(resolve,reject){
+    var req=indexedDB.open(DB_NAME,DB_VERSION);
+    req.onupgradeneeded=function(e){
+      var d=e.target.result;
+      if(!d.objectStoreNames.contains(STORE_NAME)){
+        d.createObjectStore(STORE_NAME);
+      }
+    };
+    req.onsuccess=function(e){db=e.target.result;resolve(db);};
+    req.onerror=function(e){console.error('IndexedDB error',e);reject(e);};
+  });
+}
+
+function dbPut(key,value){
+  return new Promise(function(resolve,reject){
+    if(!db){reject('DB not open');return;}
+    var tx=db.transaction(STORE_NAME,'readwrite');
+    var store=tx.objectStore(STORE_NAME);
+    var req=store.put(value,key);
+    req.onsuccess=function(){resolve();};
+    req.onerror=function(e){reject(e);};
+  });
+}
+
+function dbGet(key){
+  return new Promise(function(resolve,reject){
+    if(!db){reject('DB not open');return;}
+    var tx=db.transaction(STORE_NAME,'readonly');
+    var store=tx.objectStore(STORE_NAME);
+    var req=store.get(key);
+    req.onsuccess=function(){resolve(req.result);};
+    req.onerror=function(e){reject(e);};
+  });
+}
+
+function dbDelete(key){
+  return new Promise(function(resolve,reject){
+    if(!db){reject('DB not open');return;}
+    var tx=db.transaction(STORE_NAME,'readwrite');
+    var store=tx.objectStore(STORE_NAME);
+    var req=store.delete(key);
+    req.onsuccess=function(){resolve();};
+    req.onerror=function(e){reject(e);};
+  });
+}
+
+function gatherAll(){
+  return {
+    property:document.getElementById('g-property').value,
+    frontage:document.getElementById('g-frontage').value,
+    depth:document.getElementById('g-depth').value,
+    irrg:document.getElementById('g-irrg').checked,
+    seller:document.getElementById('g-seller').value,
+    offers:offers
+  };
+}
+
+function showSaveStatus(msg,ok){
+  var el=document.getElementById('save-status');
+  el.textContent='● '+msg;
+  el.className='save-indicator'+(ok?' saved':'');
+}
+
+function autoSave(){
+  if(saveTimer)clearTimeout(saveTimer);
+  saveTimer=setTimeout(function(){
+    var data=gatherAll();
+    dbPut(RECORD_KEY,data).then(function(){
+      showSaveStatus('Saved',true);
+    }).catch(function(e){
+      showSaveStatus('Save failed',false);
+      console.error('Auto-save error:',e);
+    });
+  },400);
+}
+
+function autoLoad(){
+  return dbGet(RECORD_KEY).then(function(data){
+    if(!data)return false;
+    document.getElementById('g-property').value=data.property||'';
+    document.getElementById('g-frontage').value=data.frontage||'';
+    document.getElementById('g-depth').value=data.depth||'';
+    document.getElementById('g-irrg').checked=!!data.irrg;
+    document.getElementById('g-seller').value=data.seller||'';
+    if(data.offers&&data.offers.length>0){
+      offers=data.offers;offerCount=offers.length;
+    }
+    return true;
+  });
+}
+
 /* ===== CONFIG ===== */
 var TIME_OPTS=(function(){
   var h='<option value="">—</option>';
@@ -219,7 +322,7 @@ function render(){
 }
 
 function esc(s){return(s||'').replace(/"/g,'&quot;').replace(/</g,'&lt;');}
-function sync(c,key){var el=document.getElementById('o'+c+'_'+key);if(el)offers[c][key]=el.value;updChecks(c);}
+function sync(c,key){var el=document.getElementById('o'+c+'_'+key);if(el)offers[c][key]=el.value;updChecks(c);autoSave();}
 function fmtMoney(inp){var v=parseFloat(inp.value.replace(/[^0-9.]/g,''));if(v>0)inp.value=v.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
 function fmtPhone(inp){var d=inp.value.replace(/\D/g,'').slice(0,10),o='';if(d.length>0)o=d.slice(0,3);if(d.length>=4)o+='-'+d.slice(3,6);if(d.length>=7)o+='-'+d.slice(6,10);inp.value=o;}
 function parseMoney(s){if(!s)return 0;return parseFloat(s.replace(/[^0-9.]/g,''))||0;}
@@ -298,8 +401,8 @@ function updChecks(c){
     var el=document.getElementById('o'+c+'_'+key);
     if(el&&d[key]){
       var cd=new Date(d[key]+'T12:00:00');
-      var bad=cd<tomorrow||cd>sevenDays;
-      el.style.color=bad?'var(--orange)':'';el.style.borderColor=bad?'var(--orange)':'';
+      var bad2=cd<tomorrow||cd>sevenDays;
+      el.style.color=bad2?'var(--orange)':'';el.style.borderColor=bad2?'var(--orange)':'';
     }else if(el){el.style.color='';el.style.borderColor='';}
   });
 }
@@ -312,20 +415,18 @@ function makeOffer(){
   var today=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+String(now.getDate()).padStart(2,'0');
   return{'irrv-date':today,'irrv-time':'23:59'};
 }
-function addOffer(){offers.push(makeOffer());offerCount++;render();}
-function removeOffer(c){if(!confirm('Remove Offer '+(c+1)+'?'))return;offers.splice(c,1);offerCount--;render();}
+function addOffer(){offers.push(makeOffer());offerCount++;render();autoSave();}
+function removeOffer(c){if(!confirm('Remove Offer '+(c+1)+'?'))return;offers.splice(c,1);offerCount--;render();autoSave();}
 
-/* ===== SAVE / LOAD ===== */
-function saveAll(){
-  var d={property:document.getElementById('g-property').value,frontage:document.getElementById('g-frontage').value,
-    depth:document.getElementById('g-depth').value,irrg:document.getElementById('g-irrg').checked,
-    seller:document.getElementById('g-seller').value,offers:offers};
+/* ===== EXPORT / IMPORT JSON (secondary) ===== */
+function exportJSON(){
+  var d=gatherAll();
   var addr=(d.property||'property').replace(/[^a-z0-9]/gi,'_').slice(0,30);
   var a=document.createElement('a');
   a.href=URL.createObjectURL(new Blob([JSON.stringify(d,null,2)],{type:'application/json'}));
   a.download='MultiOffer_'+addr+'.json';a.click();
 }
-function loadAll(ev){
+function importJSON(ev){
   var f=ev.target.files[0];if(!f)return;
   var r=new FileReader();r.onload=function(e){
     try{var d=JSON.parse(e.target.result);
@@ -334,14 +435,23 @@ function loadAll(ev){
       document.getElementById('g-depth').value=d.depth||'';
       document.getElementById('g-irrg').checked=!!d.irrg;
       document.getElementById('g-seller').value=d.seller||'';
-      offers=d.offers||[];offerCount=offers.length;render();
+      offers=d.offers||[];offerCount=offers.length;render();autoSave();
     }catch(err){alert('Could not load.');}ev.target.value='';
   };r.readAsText(f);
 }
 function clearAll(){if(!confirm('Clear everything?'))return;
   document.getElementById('g-property').value='';document.getElementById('g-frontage').value='';
   document.getElementById('g-depth').value='';document.getElementById('g-irrg').checked=false;
-  document.getElementById('g-seller').value='';offers=[makeOffer(),makeOffer()];offerCount=2;render();}
+  document.getElementById('g-seller').value='';offers=[makeOffer(),makeOffer()];offerCount=2;render();
+  dbDelete(RECORD_KEY).then(function(){showSaveStatus('Cleared',false);});
+}
+
+/* ===== Auto-save property bar on change ===== */
+document.getElementById('g-property').addEventListener('input',autoSave);
+document.getElementById('g-frontage').addEventListener('input',autoSave);
+document.getElementById('g-depth').addEventListener('input',autoSave);
+document.getElementById('g-irrg').addEventListener('change',autoSave);
+document.getElementById('g-seller').addEventListener('input',autoSave);
 
 /* ===== PRINT ===== */
 function prepPrint(){
@@ -374,8 +484,20 @@ function prepPrint(){
   },100);
 }
 
-/* ===== INIT with 2 offers ===== */
-offers=[makeOffer(),makeOffer()];offerCount=2;render();
+/* ===== INIT ===== */
+offers=[makeOffer(),makeOffer()];offerCount=2;
+
+openDB().then(function(){
+  return autoLoad();
+}).then(function(loaded){
+  render();
+  showSaveStatus('Auto-save on',true);
+}).catch(function(e){
+  console.error('DB init error:',e);
+  render();
+  showSaveStatus('Auto-save off',false);
+});
+
 setInterval(function(){for(var i=0;i<offerCount;i++)updChecks(i);},60000);
 </script>
 </body>
