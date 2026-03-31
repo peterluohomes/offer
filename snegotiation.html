@@ -41,6 +41,19 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);
 .clause-row:last-child{border-bottom:none}
 .clause-num{font-family:'DM Mono',monospace;font-size:12px;color:var(--gold);font-weight:600;min-width:24px;text-align:center}
 .clause-row textarea{flex:1;border:1px solid var(--border);border-radius:5px;padding:7px 8px;font-size:13px;color:var(--text);background:var(--cream);outline:none;min-height:36px;resize:vertical}
+/* Reference clause styles */
+.ref-clause{padding:10px 0;border-bottom:1px solid var(--cream2)}
+.ref-clause:last-child{border-bottom:none}
+.ref-clause-header{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.ref-clause-id{font-family:'DM Mono',monospace;font-size:11px;color:var(--gold);font-weight:600;white-space:nowrap}
+.ref-clause-title{font-size:13px;font-weight:600;color:var(--navy)}
+.ref-clause-text{font-size:12px;line-height:1.55;color:var(--text);margin-top:4px;padding-left:0}
+.ref-clause .note-btn{background:none;border:1px solid var(--border);border-radius:4px;padding:2px 8px;font-family:'DM Sans',sans-serif;font-size:10px;color:var(--gold);cursor:pointer;min-height:24px;line-height:1;white-space:nowrap;margin-left:auto}
+.ref-clause .note-btn:hover{background:var(--gold);color:var(--navy)}
+.ref-clause .note-btn.has-note{background:var(--gold2);color:var(--navy);border-color:var(--gold)}
+.ref-clause .ref-note{width:100%;margin-top:8px;border:1px solid var(--gold2);border-radius:5px;padding:7px 10px;font-family:'DM Sans',sans-serif;font-size:12px;color:var(--text);background:#fff;outline:none;resize:vertical;min-height:34px;line-height:1.4}
+.ref-clause .ref-note:focus{border-color:var(--gold);background:#fffef8}
+.ref-clause .ref-note.note-hidden{display:none}
 .toolbar{display:flex;gap:8px;justify-content:center;padding:12px 0 24px;flex-wrap:wrap;align-items:center}
 .btn{padding:10px 18px;min-height:var(--tap);border-radius:6px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;display:flex;align-items:center;gap:5px}
 .btn-outline{background:transparent;border:1.5px solid var(--gold);color:var(--gold)}
@@ -98,6 +111,14 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);
   .flex-row{gap:6px}
   .clause-row{padding:3px 0}
   .clause-row textarea{min-height:unset;padding:3px 6px;font-size:11px}
+  .ref-clause{padding:5px 0}
+  .ref-clause-header{margin-bottom:2px}
+  .ref-clause-id{font-size:9px}
+  .ref-clause-title{font-size:10px}
+  .ref-clause-text{font-size:9px;line-height:1.4}
+  .ref-clause .note-btn{display:none!important}
+  .ref-clause .ref-note{font-size:9px;min-height:unset;padding:3px 6px;margin-top:3px}
+  .ref-clause .ref-note.note-hidden{display:none!important}
   .cond-table td{padding:3px 6px}
   .cond-table input{padding:3px 6px;font-size:11px;min-height:unset}
   .page-footer{padding:8px 16px;font-size:10px}
@@ -268,6 +289,51 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);
     <div class="clause-row"><span class="clause-num">8</span><textarea></textarea></div>
     <div class="clause-row"><span class="clause-num">9</span><textarea></textarea></div>
     <div class="clause-row"><span class="clause-num">10</span><textarea></textarea></div>
+
+    <!-- Reference Clauses (Schedule A1) -->
+    <div class="divider" style="margin:14px 0 8px"></div>
+    <div style="font-size:10px;font-weight:600;color:var(--gold);letter-spacing:.8px;text-transform:uppercase;margin-bottom:8px">📋 Reference Clauses — Schedule A1</div>
+
+    <div class="ref-clause" data-ref="a1-1">
+      <div class="ref-clause-header">
+        <span class="ref-clause-id">A1-1:1</span>
+        <span class="ref-clause-title">Deposit Delivery (Certified Cheque/Bank Draft)</span>
+        <button type="button" class="note-btn" data-ref-note="a1-1">+note</button>
+      </div>
+      <div class="ref-clause-text">The Buyer hereby acknowledges and agrees to deliver the Deposit as mentioned in this Agreement of Purchase and Sale by Bank Draft or Certified cheque to the Deposit Holder within 24 hours of the acceptance of this Agreement.</div>
+      <textarea class="ref-note note-hidden" data-ref-key="a1-1" placeholder="Add note…"></textarea>
+    </div>
+
+    <div class="ref-clause" data-ref="a1-2">
+      <div class="ref-clause-header">
+        <span class="ref-clause-id">A1-1:2</span>
+        <span class="ref-clause-title">Deposit Timeline &amp; Default Remedy</span>
+        <button type="button" class="note-btn" data-ref-note="a1-2">+note</button>
+      </div>
+      <div class="ref-clause-text">Buyer agrees to deliver the above-mentioned Deposit to the Listing Brokerage's office within 24 hours of the time stated in the "Confirmation of Acceptance" section of this Agreement of Purchase and Sale. TIME IS OF THE ESSENCE with respect to this obligation. In the event that the Listing Brokerage does not receive the said Deposit within this period, the Seller may, at their sole and absolute discretion, declare this Agreement terminated due to Buyer's default. Upon such termination, the Seller shall be at liberty to immediately re-list the property for sale and to accept another offer, and the Seller reserves all rights to pursue any and all legal remedies against the Buyer, including, but not limited to, a claim for damages.</div>
+      <textarea class="ref-note note-hidden" data-ref-key="a1-2" placeholder="Add note…"></textarea>
+    </div>
+
+    <div class="ref-clause" data-ref="a1-3">
+      <div class="ref-clause-header">
+        <span class="ref-clause-id">A1-1:3</span>
+        <span class="ref-clause-title">No Warranty on Chattels</span>
+        <button type="button" class="note-btn" data-ref-note="a1-3">+note</button>
+      </div>
+      <div class="ref-clause-text">The Seller(s) and Buyer acknowledge and agree that there is no express or implied warranty on the condition of the chattels which are included in this Agreement of Purchase and Sale.</div>
+      <textarea class="ref-note note-hidden" data-ref-key="a1-3" placeholder="Add note…"></textarea>
+    </div>
+
+    <div class="ref-clause" data-ref="a1-4">
+      <div class="ref-clause-header">
+        <span class="ref-clause-id">A1-1+2:4</span>
+        <span class="ref-clause-title">Seller's Right to Adjust Completion Date</span>
+        <button type="button" class="note-btn" data-ref-note="a1-4">+note</button>
+      </div>
+      <div class="ref-clause-text">All parties acknowledge and agree that notwithstanding the completion date set out in this offer, the Seller(s) has the right to advance or postpone the completion date of the transaction by not more than 45 days once, by giving written notice of the amended completion date to the Buyer or his solicitor at least 30 days in advance of the earlier of the completion date set out therein and the amended completion date. All parties also acknowledge and agree that the Title Search Date will be changed to 10 business days before the amended completion date accordingly.</div>
+      <textarea class="ref-note note-hidden" data-ref-key="a1-4" placeholder="Add note…"></textarea>
+    </div>
+
   </div></div>
 
   <!-- ===== DOC 2: SELLER COMMUNICATION STRATEGIES (renamed) ===== -->
@@ -558,7 +624,35 @@ function showSavedNotes(){
       if(btn) updateNoteBtn(btn, ta);
     }
   });
+  /* Also handle ref-clause notes */
+  document.querySelectorAll('.ref-note').forEach(function(ta){
+    var key = ta.getAttribute('data-ref-key');
+    var btn = document.querySelector('[data-ref-note="'+key+'"]');
+    if(ta.value.trim()){
+      ta.classList.remove('note-hidden');
+      if(btn) updateNoteBtn(btn, ta);
+    } else {
+      ta.classList.add('note-hidden');
+      if(btn) updateNoteBtn(btn, ta);
+    }
+  });
 }
+
+/* ===== Wire ref-clause +note buttons ===== */
+document.querySelectorAll('.ref-clause .note-btn').forEach(function(btn){
+  var key = btn.getAttribute('data-ref-note');
+  var ta = document.querySelector('.ref-note[data-ref-key="'+key+'"]');
+  btn.addEventListener('click', function(e){
+    e.preventDefault();
+    var isHidden = ta.classList.toggle('note-hidden');
+    if(!isHidden) ta.focus();
+    updateNoteBtn(btn, ta);
+  });
+  ta.addEventListener('input', function(){
+    updateNoteBtn(btn, ta);
+    autoSave();
+  });
+});
 
 /* ===== WIRE EVENTS ===== */
 document.getElementById('f-price').addEventListener('input',function(){updPrice();updPct();autoSave();});
@@ -598,6 +692,7 @@ function gatherData(){
   d.clauses=[];document.querySelectorAll('#clause-body textarea').forEach(function(t){d.clauses.push(t.value);});
   d.checks={};document.querySelectorAll('.checklist input[type="checkbox"]').forEach(function(cb){d.checks[cb.getAttribute('data-ck')]=cb.checked;});
   d.itemNotes={};document.querySelectorAll('.item-note').forEach(function(ta){var key=ta.getAttribute('data-note-key');if(key&&ta.value.trim())d.itemNotes[key]=ta.value;});
+  d.refNotes={};document.querySelectorAll('.ref-note').forEach(function(ta){var key=ta.getAttribute('data-ref-key');if(key&&ta.value.trim())d.refNotes[key]=ta.value;});
   d.collapsed={};['protect','negot'].forEach(function(id){var body=document.getElementById('body-'+id);if(body)d.collapsed[id]=body.classList.contains('collapsed-body');});
   return d;
 }
@@ -608,6 +703,7 @@ function applyData(d){
   if(d.clauses){var tas=document.querySelectorAll('#clause-body textarea');d.clauses.forEach(function(c,i){if(tas[i])tas[i].value=c;});}
   if(d.checks){document.querySelectorAll('.checklist input[type="checkbox"]').forEach(function(cb){var key=cb.getAttribute('data-ck');if(d.checks[key]){cb.checked=true;cb.closest('li').classList.add('checked-item');}else{cb.checked=false;cb.closest('li').classList.remove('checked-item');}});}
   if(d.itemNotes){document.querySelectorAll('.item-note').forEach(function(ta){var key=ta.getAttribute('data-note-key');ta.value=d.itemNotes[key]||'';});}
+  if(d.refNotes){document.querySelectorAll('.ref-note').forEach(function(ta){var key=ta.getAttribute('data-ref-key');ta.value=d.refNotes[key]||'';});}
   if(d.collapsed){['protect','negot'].forEach(function(id){var body=document.getElementById('body-'+id);var arrow=document.getElementById('arrow-'+id);if(body&&d.collapsed[id]){body.classList.add('collapsed-body');if(arrow)arrow.classList.add('collapsed');}});}
   updPrice();updDeposit();updPct();calcTS();chkParty();chkIrrv();chkAccept();chkClose();chkCondDates();updateProgress();showSavedNotes();
 }
@@ -623,6 +719,7 @@ function clearForm(){
   document.querySelectorAll('.checklist input[type="checkbox"]').forEach(function(cb){cb.checked=false;cb.closest('li').classList.remove('checked-item');});
   document.querySelectorAll('.item-note').forEach(function(ta){ta.value='';ta.classList.add('note-hidden');});
   document.querySelectorAll('.note-btn').forEach(function(btn){btn.classList.remove('has-note');btn.textContent='+note';});
+  document.querySelectorAll('.ref-note').forEach(function(ta){ta.value='';ta.classList.add('note-hidden');});
   document.getElementById('deposit-pct').textContent='—';document.getElementById('deposit-pct').style.color='';document.getElementById('deposit-pct').style.fontWeight='';
   document.getElementById('price-words').textContent='—';document.getElementById('deposit-words').textContent='—';
   document.getElementById('f-deposit').style.color='';document.getElementById('f-deposit').style.fontWeight='';
