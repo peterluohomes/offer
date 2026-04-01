@@ -258,6 +258,7 @@ body {
   gap: 12px;
   padding: 12px 0;
   border-bottom: 1px solid var(--cream-dark);
+  flex-wrap: wrap;
 }
 .activity-item:last-child { border-bottom: none; }
 .activity-check {
@@ -293,6 +294,64 @@ body {
   font-size: 12.5px;
   color: var(--text-light);
   line-height: 1.45;
+}
+
+/* ── Inline +Note Button & Field ── */
+.add-note-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 3px 10px;
+  margin-left: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--gold);
+  background: rgba(184,149,42,0.08);
+  border: 1px solid rgba(184,149,42,0.2);
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+  vertical-align: middle;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.add-note-btn:hover {
+  background: rgba(184,149,42,0.16);
+  border-color: var(--gold);
+}
+.add-note-btn.has-note {
+  color: var(--navy);
+  background: rgba(27,58,107,0.08);
+  border-color: rgba(27,58,107,0.2);
+}
+.item-note-wrap {
+  display: none;
+  margin-top: 8px;
+  padding-left: 34px;
+}
+.item-note-wrap.open {
+  display: block;
+  animation: fadeSlide 0.25s ease;
+}
+.item-note-area {
+  width: 100%;
+  min-height: 56px;
+  border: 1.5px solid var(--cream-dark);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--text);
+  background: var(--cream);
+  resize: vertical;
+  transition: border-color 0.2s;
+}
+.item-note-area:focus {
+  outline: none;
+  border-color: var(--gold);
+  background: var(--white);
 }
 
 /* ── Conversation Blocks ── */
@@ -982,6 +1041,49 @@ body {
 <input type="file" id="fileInput" accept=".json" style="display:none" onchange="handleImport(event)">
 
 <script>
+// ── Inject +Note buttons into every activity-item ──
+(function injectNoteButtons() {
+  document.querySelectorAll('.activity-item').forEach(function(item, idx) {
+    // Create +note button
+    var btn = document.createElement('button');
+    btn.className = 'add-note-btn';
+    btn.type = 'button';
+    btn.innerHTML = '<span>+note</span>';
+    btn.setAttribute('data-idx', idx);
+    btn.onclick = function(e) {
+      e.stopPropagation();
+      var wrap = item.querySelector('.item-note-wrap');
+      var isOpen = wrap.classList.contains('open');
+      wrap.classList.toggle('open');
+      if (!isOpen) {
+        wrap.querySelector('.item-note-area').focus();
+      }
+    };
+
+    // Append button to .activity-text (after the span)
+    var actText = item.querySelector('.activity-text');
+    actText.appendChild(btn);
+
+    // Create note textarea wrapper below
+    var noteWrap = document.createElement('div');
+    noteWrap.className = 'item-note-wrap';
+    noteWrap.style.width = '100%';
+    noteWrap.innerHTML = '<textarea class="item-note-area" data-note-idx="' + idx + '" placeholder="Add your note here..." onclick="event.stopPropagation()"></textarea>';
+    item.appendChild(noteWrap);
+
+    // Update button style if note has content
+    noteWrap.querySelector('.item-note-area').addEventListener('input', function() {
+      if (this.value.trim()) {
+        btn.classList.add('has-note');
+        btn.innerHTML = '<span>📝 note</span>';
+      } else {
+        btn.classList.remove('has-note');
+        btn.innerHTML = '<span>+note</span>';
+      }
+    });
+  });
+})();
+
 // ── Phase Navigation ──
 function showPhase(n) {
   document.querySelectorAll('.phase-tab').forEach(t => t.classList.remove('active'));
@@ -1029,13 +1131,19 @@ function gatherData() {
       date: document.getElementById('propDate').value
     },
     notes: {},
-    checks: []
+    checks: [],
+    itemNotes: {}
   };
   document.querySelectorAll('.notes-area').forEach(ta => {
     data.notes[ta.dataset.key] = ta.value;
   });
   document.querySelectorAll('.activity-check').forEach((ch, i) => {
     if (ch.classList.contains('checked')) data.checks.push(i);
+  });
+  document.querySelectorAll('.item-note-area').forEach(ta => {
+    if (ta.value.trim()) {
+      data.itemNotes[ta.dataset.noteIdx] = ta.value;
+    }
   });
   return data;
 }
@@ -1055,6 +1163,20 @@ function applyData(data) {
     document.querySelectorAll('.activity-check').forEach((ch, i) => {
       if (data.checks.includes(i)) ch.classList.add('checked');
       else ch.classList.remove('checked');
+    });
+  }
+  if (data.itemNotes) {
+    document.querySelectorAll('.item-note-area').forEach(ta => {
+      var idx = ta.dataset.noteIdx;
+      if (data.itemNotes[idx]) {
+        ta.value = data.itemNotes[idx];
+        // Update button state
+        var btn = ta.closest('.activity-item').querySelector('.add-note-btn');
+        if (btn) {
+          btn.classList.add('has-note');
+          btn.innerHTML = '<span>📝 note</span>';
+        }
+      }
     });
   }
 }
@@ -1111,6 +1233,12 @@ function clearAll() {
   if (!confirm('Clear all notes, checklists, and property info?')) return;
   document.querySelectorAll('.notes-area').forEach(ta => ta.value = '');
   document.querySelectorAll('.activity-check').forEach(ch => ch.classList.remove('checked'));
+  document.querySelectorAll('.item-note-area').forEach(ta => {
+    ta.value = '';
+    var btn = ta.closest('.activity-item').querySelector('.add-note-btn');
+    if (btn) { btn.classList.remove('has-note'); btn.innerHTML = '<span>+note</span>'; }
+    ta.closest('.item-note-wrap').classList.remove('open');
+  });
   document.getElementById('propAddress').value = '';
   document.getElementById('propClient').value = '';
   document.getElementById('propDate').value = '';
