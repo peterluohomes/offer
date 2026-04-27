@@ -92,6 +92,41 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);
 .notes-box strong{color:var(--navy)}
 .notes-box .tip{color:var(--muted);font-style:italic}
 
+/* ===== THREE-KNOB FRAMEWORK STYLES ===== */
+.knob-intro{font-size:13px;line-height:1.6;color:var(--text);margin-bottom:14px}
+.knob-intro strong{color:var(--navy)}
+.knob-table{width:100%;border-collapse:collapse;margin:8px 0 14px;font-size:12px;background:#fff;border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.knob-table th{background:var(--navy);color:var(--gold);font-family:'Playfair Display',serif;font-size:11px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;text-align:left;padding:9px 12px;border-bottom:2px solid var(--gold)}
+.knob-table td{padding:10px 12px;border-bottom:1px solid var(--cream2);vertical-align:top;line-height:1.5}
+.knob-table tr:last-child td{border-bottom:none}
+.knob-table .knob-label{font-weight:600;color:var(--navy);width:30%;background:var(--cream)}
+.knob-table .knob-buyer{color:var(--text);width:35%}
+.knob-table .knob-seller{color:var(--text);width:35%}
+.knob-table .knob-buyer strong{color:var(--green)}
+.knob-table .knob-seller strong{color:var(--orange)}
+.knob-clause{background:var(--cream);border:1px solid var(--border);border-left:4px solid var(--gold);border-radius:6px;padding:12px 14px;margin:10px 0;font-size:12px;line-height:1.6;color:var(--text);font-style:italic}
+.knob-clause.buyer-clause{border-left-color:var(--green)}
+.knob-clause.seller-clause{border-left-color:var(--orange)}
+.knob-clause-label{display:block;font-family:'Playfair Display',serif;font-size:11px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;margin-bottom:6px;font-style:normal}
+.knob-clause.buyer-clause .knob-clause-label{color:var(--green)}
+.knob-clause.seller-clause .knob-clause-label{color:var(--orange)}
+.knob-clause-text{color:var(--text)}
+.knob-warning{background:#fef9e7;border:1px solid var(--gold2);border-radius:6px;padding:10px 12px;margin:10px 0;font-size:12px;line-height:1.55;color:var(--text)}
+.knob-warning strong{color:var(--navy);display:block;margin-bottom:3px;font-size:11px;letter-spacing:.5px;text-transform:uppercase}
+@media(max-width:500px){
+  .knob-table{font-size:11px}
+  .knob-table th,.knob-table td{padding:7px 8px}
+  .knob-table .knob-label,.knob-table .knob-buyer,.knob-table .knob-seller{width:auto}
+}
+@media print{
+  .knob-intro{font-size:10px;margin-bottom:6px}
+  .knob-table{font-size:9px;margin:4px 0 6px}
+  .knob-table th,.knob-table td{padding:3px 5px}
+  .knob-clause{padding:5px 7px;font-size:9px;margin:4px 0}
+  .knob-clause-label{font-size:9px;margin-bottom:2px}
+  .knob-warning{padding:4px 6px;font-size:9px;margin:4px 0}
+  .knob-warning strong{font-size:9px}
+}
 @media(max-width:500px){.fg2,.fg3,.fg4{grid-template-columns:1fr 1fr}.flex-row{flex-wrap:wrap}.field input,.field select,.field textarea{font-size:16px}}
 @media print{
   *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
@@ -391,11 +426,11 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);
     <div class="ref-clause" data-ref="sp-6">
       <div class="ref-clause-header">
         <span class="ref-clause-id">SP-A:6</span>
-        <span class="ref-clause-title">Right to Accept Backup Offers</span>
+        <span class="ref-clause-title">Escape Clause — Seller's Right to Accept Better Offer (72-Hour Clause)</span>
         <button type="button" class="note-btn" data-ref-note="sp-6">+note</button>
       </div>
-      <div class="ref-clause-text">The Seller reserves the right to continue to offer the property for sale and accept backup offers until all conditions have been waived or fulfilled.</div>
-      <textarea class="ref-note note-hidden" data-ref-key="sp-6" placeholder="Add note…">Allows the seller to keep marketing the property during the conditional period. If the buyer fails to waive, the seller already has alternatives in place.</textarea>
+      <div class="ref-clause-text">The Seller reserves the right to continue to offer the property for sale and accept backup offers until all conditions have been waived or fulfilled. Provided that the Seller may continue to offer the property for sale and, in the event the Seller receives another Offer satisfactory to the Seller, the Seller may so notify the Buyer in writing by delivery to the Buyer or to the Buyer's address for service hereunder. The Buyer shall have ___ ( ___ ) hours from the giving of such notice to waive this condition by notice in writing delivered to the Seller or to the Seller's address for service hereunder, failing which this Offer shall be null and void, and the Buyer's deposit shall be returned in full without interest or deduction. The Buyer agrees that, upon waiver of this condition, the Buyer shall have a binding agreement and shall complete the transaction in accordance with its terms. This clause shall not be invoked by the Seller until ___ days after acceptance of this Agreement.</div>
+      <textarea class="ref-note note-hidden" data-ref-key="sp-6" placeholder="Add note…">The classic "escape" or "72-hour clause." Most powerful seller-protection mechanism during a conditional period. Three negotiation levers: (1) response window — typically 24 / 48 / 72 hours, (2) cooldown period — days after acceptance before the clause can be invoked (gives the buyer a protected window to do due diligence undisturbed), (3) what the Buyer must waive — pure financing/inspection waiver vs. waiver-with-proof-of-funds. Pair with a "bona fide" qualifier on the second offer ("another Offer satisfactory to the Seller acting reasonably and in good faith") if the buyer pushes back. Most commonly attached to home-sale contingencies, but also useful on long financing or status-certificate conditions.</textarea>
     </div>
 
     <div class="ref-clause" data-ref="sp-7">
@@ -510,6 +545,70 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);
       </div>
       <div class="ref-clause-text">The Seller makes no representation or warranty that any improvements, renovations, alterations, or additions to the property were made in compliance with applicable building codes, by-laws, or that the necessary permits were obtained. The Buyer acknowledges that it is the Buyer's sole responsibility to verify permit history and compliance with all applicable municipal requirements at the Buyer's own expense prior to the waiver of conditions.</div>
       <textarea class="ref-note note-hidden" data-ref-key="sp-15" placeholder="Add note…">Separate from the "as-is" clause, this specifically addresses the permit question — a common source of post-closing disputes.</textarea>
+    </div>
+
+    <!-- Section C — Reps & Warranties: The Three-Knob Framework -->
+    <div class="divider" style="margin:14px 0 8px"></div>
+    <div style="font-size:10px;font-weight:600;color:var(--gold);letter-spacing:.8px;text-transform:uppercase;margin-bottom:8px">📋 Reference Clauses — Section C — Reps &amp; Warranties: The Three-Knob Framework</div>
+
+    <div class="knob-intro">
+      Every representation &amp; warranty in an APS has <strong>three independent knobs</strong> that can be turned to favour the buyer or the seller. Understanding all three is what separates a strong negotiator from a clause-copier. Adjusting one knob alone often leaves a gap the other side can drive through — as the Ontario Court of Appeal demonstrated in <strong>Beatty v. Wei</strong>.
+    </div>
+
+    <table class="knob-table">
+      <thead>
+        <tr>
+          <th>Knob</th>
+          <th>Buyer Wants</th>
+          <th>Seller Wants</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="knob-label">1 · Knowledge Qualifier<br><span style="font-weight:400;font-size:11px;color:var(--muted)">Is the rep absolute or qualified by what the seller knew?</span></td>
+          <td class="knob-buyer"><strong>Absolute</strong> — "the property has never been used for…"<br><span style="color:var(--muted);font-size:11px">Seller is liable even without knowledge.</span></td>
+          <td class="knob-seller"><strong>Qualified</strong> — "to the best of the Seller's knowledge and belief…"<br><span style="color:var(--muted);font-size:11px">Seller can defend with honest ignorance.</span></td>
+        </tr>
+        <tr>
+          <td class="knob-label">2 · Temporal Scope<br><span style="font-weight:400;font-size:11px;color:var(--muted)">When must the rep be true?</span></td>
+          <td class="knob-buyer"><strong>Dual-date</strong> — "as of acceptance AND as of the Completion Date"<br><span style="color:var(--muted);font-size:11px">Locks seller into ongoing truth obligation.</span></td>
+          <td class="knob-seller"><strong>Signing-only</strong> — "as of the date of acceptance"<br><span style="color:var(--muted);font-size:11px">Post-signing changes don't trigger breach.</span></td>
+        </tr>
+        <tr>
+          <td class="knob-label">3 · Survival<br><span style="font-weight:400;font-size:11px;color:var(--muted)">Can buyer sue after closing?</span></td>
+          <td class="knob-buyer"><strong>Survive &amp; not merge</strong> — open-ended post-closing remedy<br><span style="color:var(--muted);font-size:11px">Doctrine of merger displaced.</span></td>
+          <td class="knob-seller"><strong>Merges on closing</strong>, or survives only X days (e.g. 2 or 7 days)<br><span style="color:var(--muted);font-size:11px">Cap on post-closing exposure.</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="knob-warning">
+      <strong>⚠️ The Beatty v. Wei Trap</strong>
+      Even with "shall survive and not merge," the ONCA held the warranty only had to be true <em>at signing</em> — because the clause didn't explicitly state it continued through to closing. <strong>Knob 3 alone is not enough.</strong> Without Knob 2's dual-date language, a seller who learns of a defect after signing has no contractual obligation to disclose, and the rep remains technically true.
+    </div>
+
+    <div class="section-label" style="margin-top:18px"><span>Drafting Templates — Two Ends of the Spectrum</span></div>
+
+    <div class="knob-clause buyer-clause">
+      <span class="knob-clause-label">🟢 Maximum Buyer Protection — Absolute · Dual-Date · Surviving</span>
+      <div class="knob-clause-text">
+        "The Seller represents and warrants, <strong>as of the date of acceptance and as of the Completion Date</strong>, that the property has <strong>never</strong> been used for the growth or manufacture of illegal substances. This representation and warranty <strong>shall survive and not merge</strong> upon completion of this transaction."
+      </div>
+    </div>
+
+    <div class="knob-clause seller-clause">
+      <span class="knob-clause-label">🟠 Maximum Seller Protection — Knowledge-Qualified · Signing-Only · Merging</span>
+      <div class="knob-clause-text">
+        "<strong>To the best of the Seller's current knowledge and belief</strong>, <strong>as of the date of acceptance</strong>, the Seller is not aware of the property having been used for the growth or manufacture of illegal substances during the Seller's ownership."
+      </div>
+    </div>
+
+    <div class="notes-box" style="margin-top:14px">
+      <strong>Negotiation Posture:</strong><br>
+      <span class="tip">• When listing — push for Seller-side defaults on all three knobs. Combine with SP-A:8 / SP-A:9 (general merger clauses) for layered protection.<br>
+      • When negotiating a sign-back — concede Knob 3 (survival) before Knob 1 (absolute liability). A short post-closing window (2–7 days) is far less risky than dropping the knowledge qualifier.<br>
+      • Watch for buyer-drafted clauses that turn all three knobs at once — that's where seller exposure compounds.<br>
+      • Cross-reference: this framework underlies checklist item <strong>r14</strong> in the Conditions card above (modify "survive and not merge" → time-limited) and clauses <strong>SP-A:8</strong>, <strong>SP-A:9</strong>, and <strong>SP-B:10</strong> in Sections A and B above.</span>
     </div>
 
   </div></div>
