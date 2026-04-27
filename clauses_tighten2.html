@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Schedule A — Seller Protection Redline | 8 Townwood Drive | Pinnacle Listing System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0a2540;
+  --navy2:#143358;
+  --gold:#c9a961;
+  --gold2:#b8964e;
+  --cream:#faf7f2;
+  --cream2:#f1ebe0;
+  --text:#1a1a1a;
+  --muted:#6b7280;
+  --border:#e5dfd1;
+  --black:#000000;
+  --blue:#0f4c81;
+  --blue-bg:#eef4fb;
+  --blue-border:#c5dbf0;
+  --red:#a01c1c;
+  --green:#1e6b3a;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0;background:var(--cream);color:var(--text);font-family:'DM Sans',-apple-system,BlinkMacSystemFont,sans-serif;font-size:14px;line-height:1.6}
+.wrap{max-width:980px;margin:0 auto;padding:24px 18px 60px}
+
+/* HEADER */
+.hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);color:#fff;border-radius:14px;padding:28px 26px;margin-bottom:22px;box-shadow:0 8px 24px rgba(10,37,64,.12);position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;top:0;right:0;width:160px;height:160px;background:radial-gradient(circle,var(--gold) 0%,transparent 70%);opacity:.18}
+.hero .brand{font-family:'Playfair Display',serif;font-size:11px;font-weight:600;color:var(--gold);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:8px;position:relative}
+.hero h1{font-family:'Playfair Display',serif;font-size:26px;font-weight:600;line-height:1.25;margin:0 0 8px;position:relative}
+.hero .sub{font-size:13px;color:rgba(255,255,255,.82);max-width:720px;line-height:1.55;position:relative}
+.deal-meta{display:flex;flex-wrap:wrap;gap:18px;margin-top:14px;padding-top:14px;border-top:1px solid rgba(201,169,97,.3);position:relative;font-size:12px;color:rgba(255,255,255,.78)}
+.deal-meta span strong{color:var(--gold);font-weight:600;letter-spacing:.5px}
+
+/* LEGEND */
+.legend{background:#fff;border:1px solid var(--border);border-left:4px solid var(--gold);border-radius:8px;padding:14px 18px;margin-bottom:22px;font-size:13px;line-height:1.6;color:var(--text)}
+.legend strong{color:var(--navy);font-family:'Playfair Display',serif;display:block;font-size:13px;letter-spacing:.5px;margin-bottom:6px;text-transform:uppercase}
+.legend .key{display:inline-flex;align-items:center;gap:6px;margin-right:18px;margin-top:4px}
+.legend .key-swatch{display:inline-block;width:14px;height:14px;border-radius:3px;border:1px solid var(--border)}
+.legend .key-swatch.k-black{background:var(--black)}
+.legend .key-swatch.k-blue{background:var(--blue)}
+.legend .key-swatch.k-gold{background:var(--gold)}
+
+/* SECTION DIVIDER */
+.page-divider{display:flex;align-items:center;gap:14px;margin:28px 0 16px;padding:0}
+.page-divider::before,.page-divider::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.page-divider span{font-family:'Playfair Display',serif;font-size:13px;font-weight:600;color:var(--navy);letter-spacing:2px;text-transform:uppercase;padding:4px 14px;background:var(--cream);border:1px solid var(--gold);border-radius:20px}
+
+/* CLAUSE BLOCK */
+.clause-block{background:#fff;border:1px solid var(--border);border-radius:10px;margin-bottom:18px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.04);page-break-inside:avoid;break-inside:avoid}
+.clause-head{background:var(--cream);padding:10px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.clause-tag{display:inline-flex;align-items:center;gap:6px;background:var(--navy);color:var(--gold);font-family:'Playfair Display',serif;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:4px 10px;border-radius:4px}
+.clause-title{font-family:'Playfair Display',serif;font-size:14px;font-weight:600;color:var(--navy);flex:1;min-width:220px}
+.priority{font-size:10px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;padding:3px 8px;border-radius:3px}
+.priority.high{background:#fbe5e5;color:var(--red);border:1px solid #f0c4c4}
+.priority.med{background:#fef4e0;color:#9c6f1c;border:1px solid #f0d9a8}
+.priority.low{background:#e6f2ea;color:var(--green);border:1px solid #c5e0cf}
+
+/* ORIGINAL TEXT — BLACK */
+.original{padding:14px 18px;color:var(--black);font-size:13px;line-height:1.65;background:#fff;border-bottom:1px dashed var(--border)}
+.original-label{font-family:'Playfair Display',serif;font-size:10px;font-weight:600;color:var(--muted);letter-spacing:1.2px;text-transform:uppercase;margin-bottom:6px;display:block}
+.original p{margin:0 0 8px;color:var(--black)}
+.original p:last-child{margin-bottom:0}
+.original em.fillin{font-style:normal;background:#fff8d8;padding:0 2px;border-bottom:1px dotted #c9a961}
+
+/* FIX — BLUE */
+.fix{padding:14px 18px;color:var(--blue);font-size:13px;line-height:1.65;background:var(--blue-bg);border-left:4px solid var(--blue)}
+.fix-label{font-family:'Playfair Display',serif;font-size:10px;font-weight:700;color:var(--blue);letter-spacing:1.2px;text-transform:uppercase;margin-bottom:8px;display:block}
+.fix p{margin:0 0 8px;color:var(--blue)}
+.fix p:last-child{margin-bottom:0}
+.fix strong{color:var(--blue);font-weight:700}
+.fix .new-text{display:block;background:#fff;border:1px dashed var(--blue-border);border-radius:6px;padding:10px 14px;margin:8px 0;font-style:italic;color:var(--blue);line-height:1.6}
+.fix ul{margin:6px 0 8px;padding-left:22px;color:var(--blue)}
+.fix ul li{margin-bottom:4px}
+.fix .knob-tag{display:inline-block;background:var(--blue);color:#fff;font-size:10px;font-weight:600;letter-spacing:.6px;padding:2px 7px;border-radius:3px;text-transform:uppercase;margin-right:5px;font-style:normal}
+.rationale{margin-top:10px;padding-top:10px;border-top:1px dotted var(--blue-border);font-size:12px;color:var(--blue);line-height:1.55}
+.rationale strong{font-weight:700}
+
+/* SCRIPT BLOCK — gold font on navy background */
+.script{margin:14px -18px -14px;padding:14px 18px 16px;background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);border-top:2px solid var(--gold);color:var(--gold);position:relative}
+.script-label{font-family:'Playfair Display',serif;font-size:10px;font-weight:700;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.script-label::before{content:"🎙️";font-size:13px}
+.script-text{color:var(--gold);font-size:13px;line-height:1.7;font-style:italic;font-family:'DM Sans',sans-serif;font-weight:500}
+.script-text::before{content:"\201C";font-family:'Playfair Display',serif;font-size:32px;line-height:0;vertical-align:-12px;margin-right:3px;color:var(--gold);opacity:.5}
+.script-text::after{content:"\201D";font-family:'Playfair Display',serif;font-size:32px;line-height:0;vertical-align:-18px;margin-left:2px;color:var(--gold);opacity:.5}
+.script-text strong{color:#e8c97e;font-weight:700;font-style:normal}
+.script-text em{color:#fff;font-style:italic;font-weight:500}
+
+/* SUMMARY CARD */
+.summary{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);color:#fff;border-radius:12px;padding:22px 24px;margin-top:30px;box-shadow:0 6px 20px rgba(10,37,64,.15)}
+.summary h3{font-family:'Playfair Display',serif;font-size:18px;font-weight:600;color:var(--gold);margin:0 0 12px;letter-spacing:.5px}
+.summary table{width:100%;border-collapse:collapse;font-size:12px;margin-top:8px}
+.summary th{text-align:left;padding:8px 10px;color:var(--gold);font-family:'Playfair Display',serif;font-weight:600;font-size:11px;letter-spacing:.8px;text-transform:uppercase;border-bottom:2px solid rgba(201,169,97,.4)}
+.summary td{padding:7px 10px;border-bottom:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.92);vertical-align:top}
+.summary td:first-child{font-weight:600;color:var(--gold);width:90px}
+.summary tr:last-child td{border-bottom:none}
+
+/* FOOTER */
+.footer{text-align:center;font-size:11px;color:var(--muted);margin-top:30px;padding-top:18px;border-top:1px solid var(--border);line-height:1.6}
+.footer .pinnacle{font-family:'Playfair Display',serif;font-weight:600;color:var(--navy);letter-spacing:1px;text-transform:uppercase;font-size:10px;margin-bottom:4px}
+
+/* PRINT */
+@media print{
+  body{background:#fff;font-size:11px}
+  .wrap{padding:0;max-width:100%}
+  .hero{background:var(--navy)!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;padding:18px;margin-bottom:14px;box-shadow:none}
+  .hero h1{font-size:18px}
+  .hero .sub{font-size:11px}
+  .legend{font-size:10px;padding:8px 12px;margin-bottom:12px}
+  .clause-block{box-shadow:none;margin-bottom:10px;border:1px solid #999;page-break-inside:avoid;break-inside:avoid}
+  .clause-head{padding:6px 10px}
+  .clause-title{font-size:11px}
+  .clause-tag,.priority{font-size:9px;padding:2px 6px}
+  .original,.fix{padding:8px 12px;font-size:10px;line-height:1.45}
+  .original-label,.fix-label{font-size:9px;margin-bottom:4px}
+  .original p,.fix p{margin-bottom:5px}
+  .fix .new-text{padding:6px 10px;margin:5px 0;font-size:10px}
+  .fix ul{margin:4px 0;padding-left:16px}
+  .rationale{margin-top:6px;padding-top:6px;font-size:10px}
+  .script{margin:8px -12px -8px;padding:8px 12px 10px;background:var(--navy)!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .script-label{font-size:9px;margin-bottom:5px}
+  .script-text{font-size:10px;line-height:1.5}
+  .script-text::before,.script-text::after{font-size:18px}
+  .summary{background:var(--navy)!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;padding:14px;font-size:10px}
+  .summary table{font-size:9px}
+  .summary th,.summary td{padding:4px 6px}
+  .page-divider{margin:14px 0 8px}
+  .page-divider span{font-size:10px;padding:2px 8px}
+  .footer{margin-top:14px;font-size:9px}
+  @page{size:letter;margin:0.5in}
+}
+
+@media(max-width:600px){
+  .wrap{padding:16px 12px 40px}
+  .hero{padding:22px 18px}
+  .hero h1{font-size:21px}
+  .clause-head{padding:9px 12px}
+  .clause-title{font-size:13px;min-width:0}
+  .original,.fix{padding:12px 14px;font-size:12.5px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="brand">Pinnacle Listing System · Negotiate</div>
+    <h1>Schedule A — Seller Protection Redline</h1>
+    <div class="sub">Annotated review of the buyer-drafted Schedule A (OREA Form 111 — POTL Common Elements Condominium). Original clause text is in black; proposed seller-protection changes are in blue; the dialogue to walk the seller through is in gold. Each fix maps to the Three-Knob Framework (Knowledge · Temporal Scope · Survival).</div>
+    <div class="deal-meta">
+      <span><strong>Property:</strong> 8 Townwood Drive #86, Richmond Hill, ON L4E 4Y3</span>
+      <span><strong>Buyers:</strong> [Buyers]</span>
+      <span><strong>Seller:</strong> [Seller]</span>
+      <span><strong>APS Date:</strong> March 29, 2026</span>
+    </div>
+  </div>
+
+  <!-- LEGEND -->
+  <div class="legend">
+    <strong>How to read this redline</strong>
+    <div class="key"><span class="key-swatch k-black"></span> <span><strong style="color:var(--black)">Black</strong> — buyer's original Schedule A clause as drafted</span></div>
+    <div class="key"><span class="key-swatch k-blue"></span> <span><strong style="color:var(--blue)">Blue</strong> — proposed change for seller protection</span></div>
+    <div class="key"><span class="key-swatch k-gold"></span> <span><strong style="color:#a08040">Gold</strong> — what to say to the seller</span></div>
+    <div style="margin-top:8px;font-size:12px;color:var(--muted)">Priority labels: <span class="priority high">High</span> = significant exposure if left unchanged · <span class="priority med">Medium</span> = meaningful but negotiable · <span class="priority low">Low</span> = standard polish</div>
+  </div>
+
+  <!-- ============================== PAGE 7 ============================== -->
+  <div class="page-divider"><span>Page 7 — Conditions</span></div>
+
+  <!-- CHANGE 1 — FINANCING -->
+  <div class="clause-block">
+    <div class="clause-head">
+      <span class="clause-tag">Change 1</span>
+      <span class="clause-title">Financing Condition</span>
+      <span class="priority high">High</span>
+    </div>
+    <div class="original">
+      <span class="original-label">Original clause (buyer-friendly)</span>
+      <p>This offer is conditional upon the Buyers arranging, at the Buyers' own expense, a new First Mortgage satisfactory to the Buyers in the Buyers <strong>sole and absolute discretion</strong>. Unless the Buyers give notice in writing... not later than <strong>11 p.m. on the fifth business day</strong> following acceptance of this offer, that this condition is fulfilled, this offer shall be null and void and the deposit shall be returned to the Buyers in full without deduction.</p>
+    </div>
+    <div class="fix">
+      <span class="fix-label">▸ Proposed seller-protection change</span>
+      <p><span class="knob-tag">Knob 1</span><span class="knob-tag">Knob 2</span> Tighten timeline, fix the unusual <strong>11 p.m.</strong> deadline (should be 6 p.m.), add a good-faith application duty.</p>
+      <ul>
+        <li>5 business days → <strong>3 business days</strong></li>
+        <li>11 p.m. → <strong>6 p.m.</strong> (industry standard; 11 p.m. invites late-night drama)</li>
+        <li>"Sole and absolute discretion" → <strong>"reasonable discretion, acting in good faith"</strong></li>
+        <li>Add good-faith application + denial-letter requirement</li>
+      </ul>
+      <span class="new-text">"...satisfactory to the Buyers in the Buyers' <strong>reasonable discretion, acting in good faith</strong>... not later than <strong>6 p.m. on the 3rd business day</strong> following acceptance... <strong>The Buyer agrees to apply diligently and in good faith for financing and to provide the Seller with a copy of the lender's mortgage commitment letter or written denial upon request.</strong>"</span>
+      <div class="rationale"><strong>Why:</strong> The 11 p.m. deadline is unusual and strongly favours the buyer — they get six extra business hours to decide while the seller's agent waits for late-night notice. The good-faith duty + denial letter requirement raises the cost of bad-faith walk-aways.</div>
+      <div class="script">
+        <div class="script-label">What I'll say to the seller</div>
+        <div class="script-text">Two things stand out here. First, the deadline is set at <strong>11 p.m.</strong> — that's unusual. The industry standard is 6 p.m. The buyer's agent slipped in <strong>five extra hours</strong> of decision time at the end of every business day. I'm pulling that back to 6 p.m. Second, "<strong>sole and absolute discretion</strong>" means they can walk for any reason — including changing their mind. I'm replacing it with "reasonable discretion, acting in good faith," and adding a clause that says <strong>if they claim financing failed, they have to show us the lender's denial letter</strong>. Combined with cutting the window from 5 days to 3, you're not held hostage by a buyer who's just shopping.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHANGE 2 — STATUS CERTIFICATE -->
+  <div class="clause-block">
+    <div class="clause-head">
+      <span class="clause-tag">Change 2</span>
+      <span class="clause-title">Status Certificate Condition <span style="font-size:11px;color:var(--red);font-weight:600">⚠ biggest exposure</span></span>
+      <span class="priority high">High</span>
+    </div>
+    <div class="original">
+      <span class="original-label">Original clause (buyer-friendly)</span>
+      <p>This offer is conditional upon the Buyer and the Buyer's lawyer reviewing the Status Certificate and Attachments and finding the Status Certificate and Attachments satisfactory in the Buyer's and the Buyer's lawyer's <strong>sole and absolute discretion</strong>. The Seller agrees to request at the Seller's expense, the Status Certificate and Attachments within <strong>ten (10) days</strong> after acceptance of this Offer. Unless the buyer gives notice... not later than <strong>5 p.m. on the fifth day (excluding Saturdays, Sundays and Statutory Holidays) following receipt</strong> by the buyer of the Status Certificate and Attachments, that this condition is fulfilled, this Offer shall be null and void...</p>
+    </div>
+    <div class="fix">
+      <span class="fix-label">▸ Proposed seller-protection change</span>
+      <p><span class="knob-tag">Knob 1</span><span class="knob-tag">Knob 2</span> This is the worst clause on the page. <strong>10 days for the seller to request + 5 days for the buyer to review = up to 15 calendar days minimum, with no outside date.</strong> If the condo corp is slow, this stretches to a month. Three changes:</p>
+      <ul>
+        <li>Reduce seller's request time: <strong>10 days → 5 days</strong></li>
+        <li>Add a <strong>hard outside date</strong> regardless of when the certificate is received</li>
+        <li>Replace "sole and absolute" with a materiality standard tied to <strong>adverse matters</strong> only</li>
+      </ul>
+      <span class="new-text">"...satisfactory in the Buyer's and Buyer's lawyer's <strong>reasonable discretion, acting in good faith, with respect to material adverse matters disclosed in the Status Certificate</strong>... The Seller agrees to request the Status Certificate within <strong>5 business days</strong> after acceptance... not later than <strong>5 p.m. on the 12th business day after acceptance of this Offer, regardless of when the Status Certificate is received</strong>, that this condition is fulfilled..."</span>
+      <div class="rationale"><strong>Why:</strong> As drafted, this is potentially a 30-day open-ended pause on the deal. POTL status certificates often take longer than freehold condos because they include both the corporation and the road association. The hard outside date forces resolution; the materiality qualifier prevents the buyer from killing the deal over a $200 reserve fund line item.</div>
+      <div class="script">
+        <div class="script-label">What I'll say to the seller</div>
+        <div class="script-text">This is the <strong>biggest hole in the offer</strong>. Read it carefully — there's <strong>no outside date</strong>. The buyer's clock only starts when their lawyer <em>receives</em> the status certificate. The buyer is giving you <strong>10 days just to request it</strong>, then <strong>5 more days to review it</strong>. POTL certificates often take longer than regular condos because they cover both the corporation and the road association. <strong>If the management company takes three weeks to send the package, your home sits frozen for a month.</strong> I'm cutting your request time from 10 days to 5, adding a hard deadline of <strong>12 business days from acceptance regardless of when the certificate arrives</strong>, and adding language that says they can only object to <em>material adverse matters</em> — meaning they can't kill the deal over something minor.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHANGE 3 — INSPECTION -->
+  <div class="clause-block">
+    <div class="clause-head">
+      <span class="clause-tag">Change 3</span>
+      <span class="clause-title">Home Inspection Condition</span>
+      <span class="priority high">High</span>
+    </div>
+    <div class="original">
+      <span class="original-label">Original clause (buyer-friendly)</span>
+      <p>This Offer is conditional upon the inspection of the unit and common elements by a home inspector <strong>or by a buyer's contractor</strong> at the Buyer's own expense and the obtaining satisfactory to the Buyer in the Buyer's <strong>sole and absolute discretion</strong>. Unless the Buyer gives notice in writing... not later than <strong>11 p.m. on the fifth business day</strong> following acceptance of this offer, that this condition is fulfilled, this Offer shall be null and void...</p>
+    </div>
+    <div class="fix">
+      <span class="fix-label">▸ Proposed seller-protection change</span>
+      <p><span class="knob-tag">Knob 1</span><span class="knob-tag">Knob 2</span> Three issues here, the third unique to this offer:</p>
+      <ul>
+        <li>11 p.m. → <strong>6 p.m.</strong> (industry standard)</li>
+        <li>5 business days → <strong>3 business days</strong></li>
+        <li>"Sole and absolute" → <strong>"reasonable discretion, acting in good faith"</strong></li>
+        <li><strong>Strike "or by a buyer's contractor"</strong> — this is a red flag. A licensed home inspector is bound by professional standards; a "buyer's contractor" can find any reason to fail an inspection because they have a financial incentive (they want the renovation work).</li>
+      </ul>
+      <span class="new-text">"This Offer is conditional upon the inspection of the unit and common elements by a <strong>licensed home inspector</strong> at the Buyer's own expense, and the obtaining of a report satisfactory to the Buyer in the Buyer's <strong>reasonable discretion, acting in good faith</strong>... not later than <strong>6 p.m. on the 3rd business day</strong> following acceptance..."</span>
+      <div class="rationale"><strong>Why:</strong> Allowing inspection by "a buyer's contractor" is non-standard and dangerous. Contractors have built-in incentives to identify problems (more work for them). A licensed home inspector follows OAHI/CAHPI standards. The 11 p.m. deadline mirrors the financing clause issue.</div>
+      <div class="script">
+        <div class="script-label">What I'll say to the seller</div>
+        <div class="script-text">There's something subtle in this clause that most listing agents would miss. The buyer wants the right to have the inspection done by either a home inspector <strong>"or by a buyer's contractor."</strong> That second option is a <strong>red flag</strong>. A licensed home inspector follows professional standards and is liable for their report. <strong>A contractor has a financial incentive to find problems</strong> — because if they find issues, they get hired to fix them. I'm striking that phrase and requiring a <strong>licensed home inspector</strong>, period. I'm also fixing the same 11 p.m. deadline, the 5-day window, and the "sole and absolute" language we saw in the financing clause.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHANGE 4 — ESCAPE CLAUSE (NEW) -->
+  <div class="clause-block">
+    <div class="clause-head">
+      <span class="clause-tag">Change 4 · NEW</span>
+      <span class="clause-title">Add: Escape Clause (72-Hour Clause)</span>
+      <span class="priority med">Medium</span>
+    </div>
+    <div class="original">
+      <span class="original-label">Original clause</span>
+      <p style="color:var(--muted);font-style:italic">— Not present in current Schedule A —</p>
+    </div>
+    <div class="fix">
+      <span class="fix-label">▸ Proposed addition</span>
+      <p>Insert the standard escape clause (Pinnacle SP-A:6) so that if a stronger offer arrives during the conditional period, the seller can force the buyer to firm up or release.</p>
+      <span class="new-text">"The Seller reserves the right to continue to offer the property for sale and accept backup offers until all conditions have been waived or fulfilled. Provided that... in the event the Seller receives another Offer satisfactory to the Seller, the Seller may so notify the Buyer in writing... The Buyer shall have <em class="fillin">48</em> hours from the giving of such notice to waive this condition... failing which this Offer shall be null and void, and the Buyer's deposit shall be returned in full without interest or deduction... This clause shall not be invoked by the Seller until <em class="fillin">3</em> days after acceptance of this Agreement."</span>
+      <div class="rationale"><strong>Why:</strong> Without an escape clause, the seller is locked out of the market for the entire conditional period — potentially weeks given the long status certificate window. The escape clause restores leverage.</div>
+      <div class="script">
+        <div class="script-label">What I'll say to the seller</div>
+        <div class="script-text">The buyer's lawyer didn't include an <strong>escape clause</strong> — and of course they didn't, it's a tool that benefits us, not them. Here's why this matters in your case especially: with the long status certificate window, you could be <strong>locked out of the market for two or three weeks with zero leverage</strong>. If a stronger offer walks through the door during that time, you can't act on it. I'm adding a clause that says <strong>if a better offer comes in, the buyer has 48 hours to either firm up or release the property</strong>. We give them 3 protected days first to do their due diligence undisturbed — that's fair. After that, the conditional period <strong>stops being an open-ended pause and becomes a deadline.</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================== PAGE 8 ============================== -->
+  <div class="page-divider"><span>Page 8 — Representations &amp; Warranties</span></div>
+
+  <!-- CHANGE 5 — CHATTELS -->
+  <div class="clause-block">
+    <div class="clause-head">
+      <span class="clause-tag">Change 5</span>
+      <span class="clause-title">Chattels &amp; Fixtures Working Order Warranty</span>
+      <span class="priority high">High</span>
+    </div>
+    <div class="original">
+      <span class="original-label">Original clause</span>
+      <p>The Sellers represent and warrant that the chattels and fixtures as included in this Agreement of Purchase and Sale will be in good working order and free from all liens and encumbrances on completion. The Parties agree that this representation and warranty <strong>shall survive and not merge</strong> on completion of this transaction, but apply only to the state of the property at completion of this transaction.</p>
+    </div>
+    <div class="fix">
+      <span class="fix-label">▸ Proposed seller-protection change</span>
+      <p><span class="knob-tag">Knob 3</span> Cap survival window and dollar exposure. Add language at the end of the warranty:</p>
+      <span class="new-text">"<strong>Notwithstanding the foregoing, this warranty shall expire and be of no further force or effect on the date that is forty-eight (48) hours after completion. The Buyer's sole remedy for breach shall be limited to the cost of repair or replacement, not to exceed $500 per item, and in no event shall the Seller be liable for consequential, indirect, or incidental damages.</strong>"</span>
+      <div class="rationale"><strong>Why:</strong> "Survives and does not merge" with no time limit means the buyer can sue years later over a worn-out appliance. The 48-hour window forces the buyer to test on closing. The per-item cap eliminates lawsuit risk that exceeds the chattel's value.</div>
+      <div class="script">
+        <div class="script-label">What I'll say to the seller</div>
+        <div class="script-text">As written, you're <strong>guaranteeing every appliance and fixture works — and that promise survives forever</strong>. If the dishwasher dies a month after closing, the buyer can come after you. I'm adding two limits: <strong>the warranty expires 48 hours after closing</strong> — that forces them to actually test things on closing day, not three weeks later — and <strong>your maximum exposure is capped at $500 per item, no consequential damages</strong>. You shouldn't be facing a $20,000 lawsuit over a $400 dryer.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHANGE 6 — NON-RESIDENT (FATCA) -->
+  <div class="clause-block">
+    <div class="clause-head">
+      <span class="clause-tag">Change 6</span>
+      <span class="clause-title">Non-Canadian Residence Tax Representation <span style="font-size:11px;color:var(--red);font-weight:600">⚠ poorly drafted</span></span>
+      <span class="priority high">High</span>
+    </div>
+    <div class="original">
+      <span class="original-label">Original clause</span>
+      <p>The Seller represent he is not a NON-Canada Residence, otherwise the non-Canadian residence tax treatment provision will be applied by the Seller's lawyer.</p>
+    </div>
+    <div class="fix">
+      <span class="fix-label">▸ Proposed seller-protection change</span>
+      <p><span class="knob-tag">Knob 1</span><span class="knob-tag">Knob 2</span> This clause is grammatically broken and legally vague. It needs a complete rewrite using the proper Section 116 ITA language. <strong>This is critical because if the seller IS a non-resident, the buyer is liable to CRA for 25-50% of the purchase price</strong> if they don't withhold properly.</p>
+      <span class="new-text">"The Seller represents and warrants that, <strong>as of the date of acceptance and as of the Completion Date</strong>, the Seller is not now and will not be on completion <strong>a non-resident of Canada within the meaning of Section 116 of the Income Tax Act (Canada)</strong>. The Seller agrees to provide a statutory declaration to this effect on closing. This representation and warranty shall survive and not merge upon completion of this transaction. <strong>If the Seller fails to provide the declaration on closing, the Buyer shall be entitled to withhold from the purchase price such amount as may be required by law to comply with the Seller's tax obligations.</strong>"</span>
+      <div class="rationale"><strong>Why:</strong> The original clause is so poorly drafted it would not protect the seller in court. The proper Section 116 language is industry-standard, clear, and legally enforceable. Note: this is one warranty that <em>should</em> survive and not merge — the seller wants to be protected by it (it confirms their status), and the buyer needs the survival to enforce against the seller's lawyer. Critical: if the seller IS a non-resident, this needs different treatment entirely.</div>
+      <div class="script">
+        <div class="script-label">What I'll say to the seller</div>
+        <div class="script-text">Before I explain this fix, I need to ask you directly — are you a Canadian resident for tax purposes? <em>[pause for answer]</em> Good. Now look at this clause — it's grammatically broken and legally vague. <strong>It says "The Seller represent he is not a NON-Canada Residence"</strong> — that wouldn't hold up. More importantly, <strong>the buyer is liable to the CRA for 25 to 50 percent of the purchase price</strong> if you turn out to be a non-resident and they don't withhold properly. I'm replacing this with the proper <strong>Section 116 Income Tax Act language</strong> — industry-standard, clear, enforceable. You'll provide a sworn statutory declaration on closing confirming residency. <strong>This actually protects you</strong> — once that declaration is delivered, the buyer's lawyer can't hold back funds claiming uncertainty about your status.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHANGE 7 — BUYER AGENCY -->
+  <div class="clause-block">
+    <div class="clause-head">
+      <span class="clause-tag">Change 7</span>
+      <span class="clause-title">Buyer Agency Acknowledgement <span style="font-size:11px;color:var(--muted);font-weight:500">— review only</span></span>
+      <span class="priority low">Low</span>
+    </div>
+    <div class="original">
+      <span class="original-label">Original clause</span>
+      <p>The parties to the transaction hereby acknowledge that the Co-operating Broker acts for the Buyer under a Buyer Agency Agreement. The Buyer also represents that she/he was never shown this property by any other real estate agents and she/he is also no obligations to any other real estate agents or brokerages by having signed the Buyer's Agency Agreement.</p>
+    </div>
+    <div class="fix">
+      <span class="fix-label">▸ Proposed seller-protection change</span>
+      <p>This clause actually <strong>protects the seller's brokerage</strong> from a "procuring cause" commission claim by another agent. Leave the substance, but tighten the wording:</p>
+      <span class="new-text">"The parties acknowledge that the Co-operating Broker acts for the Buyer under a Buyer Representation Agreement. The Buyer represents and warrants that they were not shown this property by any other real estate agent or brokerage and <strong>have no commission obligations to any other real estate agent or brokerage in connection with this transaction</strong>. <strong>The Buyer agrees to indemnify and save harmless the Seller and the Listing Brokerage from any claim by any other agent or brokerage for commission relating to this transaction.</strong>"</span>
+      <div class="rationale"><strong>Why:</strong> The original wording is broken English ("she/he is also no obligations") which weakens enforceability. Adding the indemnity clause means if another agent surfaces with a procuring-cause claim, the buyer pays — not the seller. This is a meaningful seller-side improvement.</div>
+      <div class="script">
+        <div class="script-label">What I'll say to the seller</div>
+        <div class="script-text">This clause actually <strong>helps you</strong> — it confirms the buyer's agent is the procuring cause of this sale, which prevents a different agent from later showing up claiming a commission. But the wording is broken — "<em>she/he is also no obligations</em>" — that's not enforceable English. I'm tightening the language and <strong>adding an indemnity</strong>, meaning if another agent does surface with a commission claim, <strong>the buyer pays for that fight, not you</strong>. Small change, but it shifts the litigation risk where it belongs.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHANGE 8 — GROW-OP -->
+  <div class="clause-block">
+    <div class="clause-head">
+      <span class="clause-tag">Change 8</span>
+      <span class="clause-title">Grow-Op / Illegal Substances Warranty <span style="font-size:11px;color:var(--red);font-weight:600">⚠ missing critical language</span></span>
+      <span class="priority high">High</span>
+    </div>
+    <div class="original">
+      <span class="original-label">Original clause</span>
+      <p>The Seller represents and warrants that during the time the Seller has owned the property, the use of the property and the buildings and structures thereon has not been for the growth or manufacture of any illegal substances.</p>
+    </div>
+    <div class="fix">
+      <span class="fix-label">▸ Proposed seller-protection change</span>
+      <p><span class="knob-tag">Knob 2</span><span class="knob-tag">Knob 3</span> This clause is <strong>missing</strong> the key qualifier — there's no "to the best of the Seller's knowledge and belief" anywhere. As drafted, this is a strict-liability warranty. Three additions:</p>
+      <ul>
+        <li>Add temporal scope: <strong>"as of the date of acceptance only"</strong> (Beatty v. Wei alignment)</li>
+        <li>The clause has <strong>no merger / survival language at all</strong>. Add explicit limitation.</li>
+        <li>Optionally add knowledge qualifier for the period <em>before</em> seller's ownership (matches OREA Form 101 standard)</li>
+      </ul>
+      <span class="new-text">"The Seller represents and warrants <strong>as of the date of acceptance only</strong>, that during the time the Seller has owned the property, the use of the property and the buildings and structures thereon has not been for the growth or manufacture of any illegal substances<strong>, and that to the best of the Seller's knowledge and belief, the use of the property has never been for the growth or manufacture of illegal substances. This warranty shall survive and not merge on completion, but shall expire on the date that is six (6) months after completion.</strong>"</span>
+      <div class="rationale"><strong>Why:</strong> The buyer's draft of this clause is shorter than the OREA standard — it removed the historical knowledge qualifier and didn't include any temporal or survival language. This is unusual and likely not intentional on the buyer's part — restoring the standard wording is defensible. Adding "as of the date of acceptance only" prevents Beatty v. Wei issues. The 6-month survival cap limits exposure compared to indefinite survival.</div>
+      <div class="script">
+        <div class="script-label">What I'll say to the seller</div>
+        <div class="script-text">Compare this clause to the standard OREA wording — <strong>theirs is shorter, and not in your favour</strong>. The standard form has the phrase "to the best of the Seller's knowledge and belief" for the period before you owned the property. Their version <strong>strips that out</strong>, which means you'd be liable for what happened in this property <em>before you bought it</em>. I'm restoring the standard wording, adding three words — "<strong>as of the date of acceptance only</strong>" — that come from a Court of Appeal case called <em>Beatty v. Wei</em> protecting sellers, and capping the survival window at <strong>6 months</strong> instead of forever. After 6 months, this warranty is closed.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHANGE 9 — UNNATURAL DEATH -->
+  <div class="clause-block">
+    <div class="clause-head">
+      <span class="clause-tag">Change 9</span>
+      <span class="clause-title">Unnatural Death Warranty</span>
+      <span class="priority med">Medium</span>
+    </div>
+    <div class="original">
+      <span class="original-label">Original clause</span>
+      <p>The Seller represents and warrants that during the time the Seller has owned the property, there was no unnatural death on the property, and that to the best of the Seller's knowledge and belief, there has never been unnatural death on the property. This representation and warranty <strong>shall survive and not merge</strong> on the completion of the transaction.</p>
+    </div>
+    <div class="fix">
+      <span class="fix-label">▸ Proposed seller-protection change</span>
+      <p><span class="knob-tag">Knob 2</span><span class="knob-tag">Knob 3</span> Already has knowledge qualifier (good). Two improvements:</p>
+      <ul>
+        <li>Add temporal scope: <strong>"as of the date of acceptance only"</strong></li>
+        <li>Cap survival to <strong>6 months</strong> instead of indefinite</li>
+        <li>Define "unnatural death" — currently undefined, dangerously broad</li>
+      </ul>
+      <span class="new-text">"The Seller represents and warrants <strong>as of the date of acceptance only</strong> that during the time the Seller has owned the property, there has been no <strong>death by suicide, homicide, or violent or criminal cause ("unnatural death")</strong> on the property, and that to the best of the Seller's <strong>actual</strong> knowledge and belief, there has never been such a death on the property. <strong>This warranty shall survive and not merge on completion, but shall expire six (6) months after completion.</strong>"</span>
+      <div class="rationale"><strong>Why:</strong> "Unnatural death" is undefined — a court could read it broadly to include accidents, drug overdoses, even slip-and-falls. Defining it narrowly to suicide/homicide/violent causes is the standard interpretation but should be explicit. "Actual knowledge" defeats constructive-knowledge claims.</div>
+      <div class="script">
+        <div class="script-label">What I'll say to the seller</div>
+        <div class="script-text">This clause is mostly fine — it has the "to the best of your knowledge" qualifier, which is good. But <strong>"unnatural death" is not defined anywhere</strong>. A court could read that broadly — accident, overdose, even a slip-and-fall. I'm narrowing it to <strong>suicide, homicide, or violent/criminal cause</strong>, which is what people actually mean by unnatural death and what causes property stigma. I'm also using "<strong>actual knowledge</strong>" instead of just "knowledge" so a buyer's lawyer can't argue you "should have known," and capping the warranty at <strong>6 months post-closing</strong> instead of forever.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHANGE 10 — MISSING CLAUSES -->
+  <div class="clause-block">
+    <div class="clause-head">
+      <span class="clause-tag">Change 10 · NEW</span>
+      <span class="clause-title">Add: Reps Missing from This Schedule</span>
+      <span class="priority high">High</span>
+    </div>
+    <div class="original">
+      <span class="original-label">Original clause</span>
+      <p style="color:var(--muted);font-style:italic">— These standard reps are completely absent from this Schedule A —</p>
+    </div>
+    <div class="fix">
+      <span class="fix-label">▸ Proposed additions</span>
+      <p>Compared to OREA Form 101, this Schedule is <strong>missing several standard warranties</strong>. Adding them is a one-way improvement for the seller because they're already implicitly bound by REBBA and common law — putting them in writing with proper limitations is better than relying on unwritten common-law standards.</p>
+
+      <p style="margin-top:12px"><strong>Add — Hidden Defects (Limited):</strong></p>
+      <span class="new-text">"The Seller represents and warrants that, <strong>to the best of the Seller's actual knowledge and belief, as of the date of acceptance only</strong>, the property does not contain any <strong>material latent defects that render the property dangerous or unfit for habitation</strong>. This warranty shall survive and not merge on completion, but shall expire six (6) months after completion."</span>
+
+      <p style="margin-top:12px"><strong>Add — Insurance Claims (Limited):</strong></p>
+      <span class="new-text">"To the best of the Seller's knowledge and belief, the Seller has not opened any insurance claims relating to the <strong>physical condition of the property in excess of $5,000</strong> during the time the Seller has owned the property."</span>
+
+      <p style="margin-top:12px"><strong>Add — Master Merger Clause:</strong></p>
+      <span class="new-text">"<strong>All warranties and representations made by the Seller apply strictly to the property's condition prior to Closing. Except as expressly provided otherwise in this Agreement, these warranties shall not survive Closing, but shall merge entirely with the deed upon delivery, rendering Seller free of any post-Closing liability regarding the property's condition.</strong>"</span>
+
+      <div class="rationale"><strong>Why:</strong> Adding controlled, knowledge-qualified, time-limited reps is <em>better</em> for the seller than leaving them out — because common law and REBBA already impose obligations to disclose material latent defects regardless. Putting them in writing with explicit limitations replaces vague common-law standards with defined, capped contract terms.</div>
+      <div class="script">
+        <div class="script-label">What I'll say to the seller</div>
+        <div class="script-text">This may sound counterintuitive, but I want to <strong>add</strong> some warranties that aren't currently in this offer. Here's why: <strong>you're already legally obligated to disclose material latent defects</strong> under common law and REBBA — that's true whether or not it's written in the contract. So the question isn't whether you're obligated; it's whether your obligations are <strong>vague and open-ended, or defined and capped</strong>. By writing them in with knowledge qualifiers, materiality thresholds, and 6-month time limits, <strong>I'm replacing unwritten obligations with controlled, written ones</strong>. The master merger clause at the end is your safety net — it says everything dies at closing unless we explicitly extended it.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================== PAGE 9 ============================== -->
+  <div class="page-divider"><span>Page 9 — Closing Logistics</span></div>
+
+  <!-- CHANGE 11 — VACANT POSSESSION -->
+  <div class="clause-block">
+    <div class="clause-head">
+      <span class="clause-tag">Change 11</span>
+      <span class="clause-title">Vacant Possession &amp; Clean Condition <span style="font-size:11px;color:var(--red);font-weight:600">⚠ vague standard</span></span>
+      <span class="priority med">Medium</span>
+    </div>
+    <div class="original">
+      <span class="original-label">Original clause</span>
+      <p>The sellers agree to give vacant and <strong>neat clean</strong> possession of the property and no garbage left behind. The Seller agrees to leave the premises including the floors, in a <strong>clean and broom swept condition</strong> after vacant the premises.</p>
+    </div>
+    <div class="fix">
+      <span class="fix-label">▸ Proposed seller-protection change</span>
+      <p>The standard "broom-swept" language is fine, but <strong>"neat clean"</strong> is undefined and risky — the buyer could claim a few smudges on a window means the seller breached. Tighten the standard:</p>
+      <span class="new-text">"The Seller agrees to give <strong>vacant possession</strong> of the property on completion, free of all personal belongings, chattels not included in this Agreement, and garbage. The Seller shall leave the premises in <strong>broom-swept condition</strong>. <strong>"Broom-swept" means free of loose debris and visible accumulated dirt, but does not require professional cleaning, sanitization, or removal of normal wear-and-tear marks.</strong>"</span>
+      <div class="rationale"><strong>Why:</strong> "Neat clean" is not a legal standard — buyers regularly use vague cleanliness language to claim breach and demand a holdback on closing. Defining "broom-swept" excludes the most common closing-day disputes (dust on baseboards, a coffee stain, etc).</div>
+      <div class="script">
+        <div class="script-label">What I'll say to the seller</div>
+        <div class="script-text">This one is quick but important. The clause uses two different cleanliness standards — "<strong>neat clean</strong>" and "<strong>broom-swept</strong>" — and they don't mean the same thing. "Neat clean" isn't a legal standard at all. Buyers regularly use this kind of vague language to <strong>demand a $1,000 holdback on closing day</strong> claiming the place wasn't clean enough. I'm replacing both with a single defined standard: <strong>broom-swept</strong>, with a sentence explaining what that means — free of debris and visible dirt, but not professional cleaning. You're not running a cleaning service for the next owner; you're handing over a clean, empty home.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHANGE 12 — KEYS -->
+  <div class="clause-block">
+    <div class="clause-head">
+      <span class="clause-tag">Change 12</span>
+      <span class="clause-title">Keys on Completion</span>
+      <span class="priority low">Low</span>
+    </div>
+    <div class="original">
+      <span class="original-label">Original clause</span>
+      <p>The Seller agrees to provide at least <strong>two copies set</strong> of keys to the Buyer on completion of this transaction.</p>
+    </div>
+    <div class="fix">
+      <span class="fix-label">▸ Proposed seller-protection change</span>
+      <p>"At least two copies" is open-ended — the buyer could later claim they expected 5. Cap and clarify:</p>
+      <span class="new-text">"The Seller agrees to provide to the Buyer on completion <strong>two (2) sets of all keys, fobs, garage remotes, and access devices</strong> currently in the Seller's possession <strong>relating to the property and common elements</strong>. The Seller shall not be required to obtain or pay for replacement keys, fobs, or remotes beyond those currently in the Seller's possession."</span>
+      <div class="rationale"><strong>Why:</strong> Common elements condos with road associations often have multiple key types — front door, garage remote, mail key, amenity fob, gate fob. "At least two copies set" is grammatically broken and quantitatively open-ended. Defining it as "currently in possession" prevents the buyer from demanding the seller pay $400 for additional fob copies on closing day.</div>
+      <div class="script">
+        <div class="script-label">What I'll say to the seller</div>
+        <div class="script-text">Quick one — the keys clause says "<strong>at least two copies set</strong>." That's grammatically broken and open-ended. For a POTL like yours, there are usually multiple key types — house key, garage remote, mail key, possibly a community fob. I'm clarifying that you're providing <strong>two sets of everything you currently have</strong>, and you're <strong>not on the hook to buy additional copies</strong>. New fobs can run $200 or $300 each — that shouldn't be a closing-day surprise expense for you.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHANGE 13 — THREE PRE-CLOSING VISITS -->
+  <div class="clause-block">
+    <div class="clause-head">
+      <span class="clause-tag">Change 13</span>
+      <span class="clause-title">Three Pre-Closing Visits <span style="font-size:11px;color:var(--red);font-weight:600">⚠ unusually generous to buyer</span></span>
+      <span class="priority high">High</span>
+    </div>
+    <div class="original">
+      <span class="original-label">Original clause</span>
+      <p>The Buyer shall have the right to enter the property <strong>three (3) further times</strong> prior to the completion, at a mutually agreed upon time. The Seller agrees to provide the access to the property for the purpose of the visit.</p>
+    </div>
+    <div class="fix">
+      <span class="fix-label">▸ Proposed seller-protection change</span>
+      <p><strong>Three pre-closing visits is one more than industry standard, and the clause has zero limits.</strong> This is the most aggressive closing-logistics clause on the page. Multiple changes:</p>
+      <ul>
+        <li>Reduce <strong>3 visits → 2 visits</strong> (industry standard)</li>
+        <li>Specify duration, notice, accompaniment, and purpose</li>
+        <li>Add <strong>no-revival language</strong> — visits cannot create new objections</li>
+      </ul>
+      <span class="new-text">"The Buyer shall have the right to enter the property on <strong>two (2) further occasions</strong> prior to completion, <strong>each visit not to exceed one (1) hour</strong>, on at least <strong>48 hours' written notice</strong> to the Seller, <strong>accompanied by the Seller or the Seller's representative</strong>, for the purpose of <strong>measurement and contractor quotes only — not for re-inspection of condition</strong>. <strong>The Buyer's pre-closing visits shall not extend, revive, or create any condition, warranty, or right of objection regarding the property's condition.</strong>"</span>
+      <div class="rationale"><strong>Why:</strong> This is the single biggest closing-day risk on Page 9. Three open-ended visits = three opportunities for the buyer to find something to complain about and use as leverage for a price abatement. The standard is 2 visits, and tightly defined. The no-revival clause is critical — it prevents the buyer from using the visit to manufacture a closing-day complaint.</div>
+      <div class="script">
+        <div class="script-label">What I'll say to the seller</div>
+        <div class="script-text">This is the most aggressive clause on the third page. The buyer's lawyer asked for <strong>three pre-closing visits</strong> with no limits — no time cap, no notice requirement, no purpose stated. Industry standard is two. <strong>Each visit is an opportunity for the buyer to manufacture a complaint</strong> and ask for a price reduction on closing day. I've seen buyers walk through three days before closing, claim they "noticed something new," and demand a $5,000 abatement. I'm cutting it to <strong>2 visits, one hour each, 48 hours' notice, accompanied by us</strong>, and adding the critical sentence: <strong>the visits cannot revive any waived condition or create new objections</strong>. Once they waive conditions, those conditions stay waived.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== SUMMARY ====== -->
+  <div class="summary">
+    <h3>⚖ Three-Knob Framework — Coverage Summary</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Change</th>
+          <th>What It Adjusts</th>
+          <th>Seller-Side Result</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>1 · Financing</td><td>Knob 1, Knob 2 — discretion + window + time</td><td>Fix 11 p.m. deadline; tighten window; good-faith duty</td></tr>
+        <tr><td>2 · Status Cert</td><td>Knob 1, Knob 2 — outside date + materiality</td><td>Hard deadline; only adverse findings can kill deal</td></tr>
+        <tr><td>3 · Inspection</td><td>Knob 1, Knob 2 — strike "contractor"</td><td>Removes contractor loophole; tightens window</td></tr>
+        <tr><td>4 · Escape Clause</td><td>NEW — leverage tool</td><td>Buyer must firm up if better offer arrives</td></tr>
+        <tr><td>5 · Chattels</td><td>Knob 3 — survival cap + $ cap</td><td>48-hr window, $500/item ceiling on liability</td></tr>
+        <tr><td>6 · Non-Resident</td><td>Knob 1, Knob 2 — proper Section 116 lang</td><td>Replaces broken clause with enforceable standard</td></tr>
+        <tr><td>7 · Buyer Agency</td><td>Indemnity addition</td><td>Buyer pays if commission claim arises</td></tr>
+        <tr><td>8 · Grow-Op</td><td>Knob 2, Knob 3 — full standard wording</td><td>Restores OREA standard; 6-month survival cap</td></tr>
+        <tr><td>9 · Unnatural Death</td><td>Knob 2, Knob 3 — define + cap</td><td>Defines scope; 6-month survival cap</td></tr>
+        <tr><td>10 · Missing Reps</td><td>NEW — controlled additions</td><td>Replaces vague common-law duty with capped reps</td></tr>
+        <tr><td>11 · Vacant Possession</td><td>Standard definition</td><td>Eliminates "neat clean" holdback risk</td></tr>
+        <tr><td>12 · Keys</td><td>Scope limitation</td><td>Two sets of what seller has — no replacement cost</td></tr>
+        <tr><td>13 · Pre-Closing Visits</td><td>Scope + no-revival</td><td>3→2 visits, defined; no closing-day ambush</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="pinnacle">Pinnacle Listing System · Negotiate</div>
+    Schedule A redline prepared as part of seller-side APS review · Cross-references: SP-A:6 (Escape), SP-A:8 / SP-A:9 (Merger), Section C (Three-Knob Framework)<br>
+    Peter Luo · RE/MAX Realtron Realty Inc., Brokerage · peterluo.homes
+  </div>
+
+</div>
+</body>
+</html>
