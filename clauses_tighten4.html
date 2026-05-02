@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Schedule A Review &amp; Tightening Recommendations</title>
+<style>
+  :root {
+    --navy: #0A2540;
+    --navy-light: #1a3a5c;
+    --gold: #B8924A;
+    --gold-light: #d4ae6a;
+    --cream: #FAF7F0;
+    --paper: #FFFFFF;
+    --gray-text: #3A3A3A;
+    --gray-soft: #6b6b6b;
+    --gray-line: #e5e0d6;
+    --red-soft: #c0392b;
+    --amber-soft: #b8860b;
+    --green-soft: #2d7a4f;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Georgia', 'Times New Roman', serif;
+    background: var(--cream);
+    color: var(--gray-text);
+    line-height: 1.65;
+  }
+
+  .page {
+    max-width: 920px;
+    margin: 0 auto;
+    background: var(--paper);
+    padding: 60px 70px;
+    box-shadow: 0 2px 20px rgba(10, 37, 64, 0.08);
+    min-height: 100vh;
+  }
+
+  /* ============== HEADER ============== */
+  .header {
+    text-align: center;
+    border-bottom: 1px solid var(--gold);
+    padding-bottom: 28px;
+    margin-bottom: 40px;
+  }
+
+  .header .brand-mark {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 14px;
+  }
+
+  .header h1 {
+    font-family: 'Georgia', serif;
+    font-size: 32px;
+    color: var(--navy);
+    margin: 0 0 6px 0;
+    font-weight: normal;
+    letter-spacing: 0.5px;
+  }
+
+  .header .subtitle {
+    font-style: italic;
+    color: var(--gold);
+    font-size: 16px;
+    margin: 0 0 18px 0;
+  }
+
+  .header .property-info {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 11px;
+    color: var(--gray-soft);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* ============== INTRO ============== */
+  .intro {
+    background: var(--cream);
+    border-left: 3px solid var(--gold);
+    padding: 18px 24px;
+    margin-bottom: 40px;
+    font-size: 14.5px;
+  }
+
+  .intro strong { color: var(--navy); }
+
+  /* ============== SECTION HEADERS ============== */
+  .section-header {
+    margin: 50px 0 24px 0;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--navy);
+  }
+
+  .section-header h2 {
+    font-family: 'Georgia', serif;
+    font-size: 22px;
+    color: var(--navy);
+    margin: 0;
+    font-weight: normal;
+  }
+
+  .section-header .section-meta {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  /* ============== ORIGINAL SCHEDULE A ============== */
+  .original-clauses {
+    background: #fdfcf8;
+    border: 1px solid var(--gray-line);
+    padding: 28px 32px;
+    margin-bottom: 30px;
+    border-radius: 2px;
+  }
+
+  .form-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--gray-line);
+    padding-bottom: 14px;
+    margin-bottom: 20px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 11px;
+    color: var(--gray-soft);
+  }
+
+  .form-meta .left { font-weight: bold; color: var(--navy); letter-spacing: 1px; }
+
+  .parties-grid {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 8px 16px;
+    margin-bottom: 22px;
+    font-size: 13.5px;
+    padding: 14px 16px;
+    background: white;
+    border: 1px solid var(--gray-line);
+  }
+
+  .parties-grid .label {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-weight: bold;
+    color: var(--navy);
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    align-self: center;
+  }
+
+  .parties-grid .value {
+    font-family: 'Georgia', serif;
+    color: var(--gray-text);
+  }
+
+  .clause {
+    margin-bottom: 18px;
+    font-size: 13.5px;
+    line-height: 1.7;
+    color: var(--gray-text);
+    padding-left: 18px;
+    border-left: 2px solid var(--gray-line);
+  }
+
+  /* ============== RECOMMENDATION CARDS ============== */
+  .priority-banner {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 2px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .priority-high {
+    background: #fdf2f0;
+    color: var(--red-soft);
+    border: 1px solid #e8c4be;
+  }
+
+  .priority-medium {
+    background: #fdf8eb;
+    color: var(--amber-soft);
+    border: 1px solid #e8d5a0;
+  }
+
+  .priority-add {
+    background: #ebf5ef;
+    color: var(--green-soft);
+    border: 1px solid #b5d6c2;
+  }
+
+  .priority-group {
+    margin-bottom: 50px;
+  }
+
+  .priority-group-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 24px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--gray-line);
+  }
+
+  .priority-group-header h3 {
+    font-family: 'Georgia', serif;
+    font-size: 19px;
+    color: var(--navy);
+    margin: 0;
+    font-weight: normal;
+  }
+
+  .recommendation {
+    background: white;
+    border: 1px solid var(--gray-line);
+    border-top: 3px solid var(--gold);
+    padding: 28px 32px;
+    margin-bottom: 26px;
+    border-radius: 2px;
+    page-break-inside: avoid;
+  }
+
+  .recommendation h4 {
+    font-family: 'Georgia', serif;
+    font-size: 17px;
+    color: var(--navy);
+    margin: 0 0 6px 0;
+    font-weight: normal;
+  }
+
+  .recommendation .clause-tag {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 10px;
+    color: var(--gold);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+
+  .compare-block {
+    margin: 20px 0;
+  }
+
+  .block-label {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .block-label.original { color: var(--gray-soft); }
+  .block-label.tightened { color: var(--gold); }
+  .block-label.problem { color: var(--red-soft); }
+  .block-label.benefit { color: var(--green-soft); }
+
+  .quote-original {
+    font-style: italic;
+    color: var(--gray-soft);
+    font-size: 13.5px;
+    line-height: 1.7;
+    padding: 14px 18px;
+    background: #f8f6f1;
+    border-left: 2px solid var(--gray-line);
+    margin: 0 0 4px 0;
+  }
+
+  .quote-tightened {
+    font-style: italic;
+    color: var(--gray-text);
+    font-size: 13.5px;
+    line-height: 1.75;
+    padding: 16px 20px;
+    background: #fbf8ef;
+    border-left: 3px solid var(--gold);
+    margin: 0 0 4px 0;
+  }
+
+  .quote-tightened strong {
+    font-style: normal;
+    color: var(--navy);
+    background: rgba(184, 146, 74, 0.12);
+    padding: 1px 3px;
+  }
+
+  .problem-text {
+    font-size: 13.5px;
+    color: var(--gray-text);
+    margin: 0;
+    padding: 0 4px;
+  }
+
+  .benefit-list {
+    margin: 6px 0 0 0;
+    padding-left: 20px;
+    font-size: 13.5px;
+    color: var(--gray-text);
+  }
+
+  .benefit-list li {
+    margin-bottom: 4px;
+  }
+
+  /* ============== SUMMARY BOX ============== */
+  .summary-box {
+    background: var(--navy);
+    color: white;
+    padding: 32px 36px;
+    margin: 50px 0 30px 0;
+    border-radius: 2px;
+  }
+
+  .summary-box h3 {
+    font-family: 'Georgia', serif;
+    font-size: 20px;
+    color: var(--gold-light);
+    margin: 0 0 16px 0;
+    font-weight: normal;
+  }
+
+  .summary-box ol {
+    margin: 0;
+    padding-left: 22px;
+    font-size: 14px;
+    line-height: 1.9;
+  }
+
+  .summary-box ol li {
+    margin-bottom: 6px;
+  }
+
+  .summary-box strong {
+    color: var(--gold-light);
+  }
+
+  /* ============== NEGOTIATION NOTE ============== */
+  .negotiation-note {
+    background: var(--cream);
+    border-left: 3px solid var(--gold);
+    padding: 22px 28px;
+    margin-bottom: 30px;
+    font-size: 14px;
+  }
+
+  .negotiation-note h4 {
+    font-family: 'Georgia', serif;
+    color: var(--navy);
+    font-size: 16px;
+    margin: 0 0 10px 0;
+    font-weight: normal;
+  }
+
+  /* ============== FOOTER ============== */
+  .footer {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--gold);
+    text-align: center;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 10px;
+    color: var(--gold);
+    letter-spacing: 1.5px;
+  }
+
+  .footer .name {
+    color: var(--navy);
+    font-weight: bold;
+    letter-spacing: 2px;
+  }
+
+  .disclaimer {
+    margin-top: 14px;
+    font-size: 9.5px;
+    color: var(--gray-soft);
+    font-style: italic;
+    letter-spacing: 0.5px;
+    text-transform: none;
+    line-height: 1.5;
+  }
+
+  /* ============== PRINT ============== */
+  @media print {
+    body { background: white; }
+    .page {
+      box-shadow: none;
+      padding: 30px 40px;
+      max-width: 100%;
+    }
+    .recommendation, .summary-box, .original-clauses {
+      page-break-inside: avoid;
+    }
+  }
+
+  @media (max-width: 700px) {
+    .page { padding: 30px 24px; }
+    .header h1 { font-size: 24px; }
+    .original-clauses, .recommendation { padding: 20px 18px; }
+    .parties-grid { grid-template-columns: 1fr; gap: 4px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- ============== HEADER ============== -->
+  <div class="header">
+    <div class="brand-mark">Pinnacle Listing System</div>
+    <h1>Schedule A Review &amp; Tightening Recommendations</h1>
+    <p class="subtitle">Seller Protection Analysis — OREA Form 100</p>
+    <div class="property-info">
+      OREA Form 100 &nbsp;·&nbsp; Seller Protection Analysis &nbsp;·&nbsp; May 1, 2026
+    </div>
+  </div>
+
+  <!-- ============== INTRO ============== -->
+  <div class="intro">
+    This document reviews the Schedule A submitted by the buyer's side and identifies clauses where the seller is exposed to post-closing claims. Each section presents the <strong>original clause</strong>, the <strong>specific risk</strong> it creates, and a <strong>tightened version</strong> drafted to give the seller stronger, more defensible language. Recommendations are organized by priority so the most material exposures are addressed first.
+  </div>
+
+  <!-- ============== SECTION 1: ORIGINAL SCHEDULE A ============== -->
+  <div class="section-header">
+    <h2>Original Schedule A — As Submitted</h2>
+    <div class="section-meta">OREA Form 100 · Pages 6–7 of 7 · Revised 2024</div>
+  </div>
+
+  <div class="original-clauses">
+    <div class="form-meta">
+      <span class="left">SCHEDULE A — AGREEMENT OF PURCHASE AND SALE</span>
+      <span>Form 100 · Page 6–7 of 7</span>
+    </div>
+
+    <div class="parties-grid">
+      <div class="label">Date</div>
+      <div class="value">May 1, 2026</div>
+    </div>
+
+    <div class="clause">
+      <strong>Balance of purchase price.</strong> Buyer agrees to pay the balance of the Purchase Price, subject to adjustments, to the Seller on completion, with funds drawn on a lawyer's trust account in the form of bank draft, certified cheque, or wire transfer using the Lynx high-value payment system.
+    </div>
+
+    <div class="clause">
+      <strong>Financing condition.</strong> This Offer is conditional upon the Buyer arranging financing satisfactory to the Buyer in the Buyer's sole and absolute discretion, with notice required not later than five (5) business days after acceptance.
+    </div>
+
+    <div class="clause">
+      <strong>Inspection condition.</strong> This Offer is conditional upon inspection by a qualified home inspector. If aluminum wiring is found, the Seller agrees to provide a current ESA certificate confirming all deficiencies have been remedied. Five (5) business days after acceptance.
+    </div>
+
+    <div class="clause">
+      <strong>Hidden defects warranty.</strong> Seller represents and warrants, to the best of their knowledge and belief, that the property does not contain any hidden defects, including but not limited to: aluminum wiring, UFFI (existing or removed), buried fuel tanks, termite infestation, or asbestos. Survives closing.
+    </div>
+
+    <div class="clause">
+      <strong>Water damage warranty.</strong> Seller represents and warrants that on closing there is no known damage to the basement, roof or elsewhere, caused by water seepage or flooding. Survives closing.
+    </div>
+
+    <div class="clause">
+      <strong>No other rentals.</strong> Seller represents that there are no other rental items/lease to own items besides what is mentioned in the APS.
+    </div>
+
+    <div class="clause">
+      <strong>No suicides/criminal use.</strong> Seller represents and warrants, to the best of their knowledge and belief, that there have been no suicides or murder on the property at any time and that no part of the property has been used for any illegal/criminal purpose. Survives closing.
+    </div>
+
+    <div class="clause">
+      <strong>No cannabis cultivation.</strong> Seller represents and warrants no cannabis sale, distribution, cultivation, propagation, or harvesting during ownership, and to the best of knowledge and belief before ownership. Survives closing.
+    </div>
+
+    <div class="clause">
+      <strong>Chattels and fixtures in good working order.</strong> Seller represents and warrants chattels and fixtures will be in good working order and free from liens on completion.
+    </div>
+
+    <div class="clause">
+      <strong>Mechanical/electrical/heating equipment in good working order.</strong> Seller warrants all mechanical, electrical, heating and other equipment shall be in good working order on completion.
+    </div>
+
+    <div class="clause">
+      <strong>Existing survey.</strong> Seller agrees to provide to the buyer's solicitor before completion an existing survey if in possession of the Seller, showing current location of all structures, buildings, fences, improvements, easements, rights-of-way, and encroachments.
+    </div>
+
+    <div class="clause">
+      <strong>Two further viewings.</strong> Buyer shall have the right to view the property two (2) further times before completion. Seller agrees to maintain the property in the same condition as at initial inspection. Snow removal, lawn upkeep, repairs to chattels and fixtures as necessary, and all other normal maintenance at Seller's expense until completion. Property to be left in good condition with all chattels (not included) and refuse/debris removed on or before closing.
+    </div>
+  </div>
+
+  <!-- ============== SECTION 2: HIGH PRIORITY ============== -->
+  <div class="section-header">
+    <h2>Tightening Recommendations</h2>
+    <div class="section-meta">Organized by priority · Material exposure first</div>
+  </div>
+
+  <!-- ============== HIGH PRIORITY ============== -->
+  <div class="priority-group">
+    <div class="priority-group-header">
+      <span class="priority-banner priority-high">High Priority</span>
+      <h3>Material Exposure for the Seller</h3>
+    </div>
+
+    <!-- Recommendation 1 -->
+    <div class="recommendation">
+      <h4>1. Hidden Defects Warranty — Too Broad</h4>
+      <div class="clause-tag">Clause: Hidden defects representation</div>
+
+      <div class="compare-block">
+        <div class="block-label original">Original Clause</div>
+        <div class="quote-original">
+          "The Seller represents and warrants, to the best of their knowledge and belief, that the property does not contain any hidden defects, including, but not limited to: Aluminum wiring, Urea Formaldehyde Foam Insulation (whether existing or removed), buried fuel tanks, termite infestation or asbestos."
+        </div>
+      </div>
+
+      <div class="compare-block">
+        <div class="block-label problem">Problem</div>
+        <p class="problem-text">"Hidden defects" is open-ended and undefined. After a top-to-bottom 2026 reno, the seller may genuinely not know about every condition behind the new drywall. The warranty also <strong>survives closing indefinitely</strong>, meaning the buyer can come back months later.</p>
+      </div>
+
+      <div class="compare-block">
+        <div class="block-label tightened">Tightened Version</div>
+        <div class="quote-tightened">
+          "The Seller represents and warrants, to the best of the Seller's <strong>actual knowledge</strong> and belief, that the Seller has not received any written notice of, and is not aware of, the existence of any of the following on the property: Urea Formaldehyde Foam Insulation, buried fuel tanks, active termite infestation, or asbestos-containing materials in a friable or exposed state. <strong>The Seller makes no representation as to any condition that may exist behind finished surfaces, within walls, beneath flooring, or in concealed areas of the property.</strong> The Buyer acknowledges that the Buyer has had the opportunity to conduct a professional home inspection and is relying on the Buyer's own inspection. This warranty shall survive closing for a period of <strong>ninety (90) days</strong> only and shall apply solely to the state of the property at completion of this transaction."
+        </div>
+      </div>
+
+      <div class="compare-block">
+        <div class="block-label benefit">Why This Helps</div>
+        <ul class="benefit-list">
+          <li>"Actual knowledge" is a higher bar than "knowledge and belief"</li>
+          <li>Removes aluminum wiring (it can be inspected — no need to warrant)</li>
+          <li>Caps the survival period at 90 days instead of indefinite</li>
+          <li>Carves out concealed conditions — critical given the recent reno</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Recommendation 2 -->
+    <div class="recommendation">
+      <h4>2. Water Damage Representation — Indefinite Survival</h4>
+      <div class="clause-tag">Clause: Water seepage / flooding</div>
+
+      <div class="compare-block">
+        <div class="block-label original">Original Clause</div>
+        <div class="quote-original">
+          "The Seller represents and warrants that on closing, there is no known damage to the basement, roof or elsewhere, caused by water seepage or flooding."
+        </div>
+      </div>
+
+      <div class="compare-block">
+        <div class="block-label problem">Problem</div>
+        <p class="problem-text">No survival cap. "Or elsewhere" is a fishing net that captures any water-related issue anywhere on the property.</p>
+      </div>
+
+      <div class="compare-block">
+        <div class="block-label tightened">Tightened Version</div>
+        <div class="quote-tightened">
+          "The Seller represents and warrants, to the best of the Seller's actual knowledge and belief, that as of the date of acceptance of this Agreement, there is no <strong>active</strong> water seepage or active flooding damage to the basement or roof of the property. This representation <strong>shall survive closing for a period of ninety (90) days only</strong> and shall apply solely to the state of the property at completion of this transaction. <strong>For greater certainty, this representation does not apply to historical water staining, prior repaired conditions, or moisture that may arise after closing.</strong>"
+        </div>
+      </div>
+
+      <div class="compare-block">
+        <div class="block-label benefit">Why This Helps</div>
+        <ul class="benefit-list">
+          <li>Caps survival at 90 days</li>
+          <li>"Active" excludes old, repaired issues</li>
+          <li>Limits scope to basement and roof (drops "elsewhere")</li>
+          <li>Carves out post-closing moisture (e.g., a buyer who runs the dishwasher wrong)</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Recommendation 3 -->
+    <div class="recommendation">
+      <h4>3. Chattels &amp; Fixtures "In Good Working Order"</h4>
+      <div class="clause-tag">Clause: Most over-promised in the form</div>
+
+      <div class="compare-block">
+        <div class="block-label original">Original Clause</div>
+        <div class="quote-original">
+          "The Seller represents and warrants that the chattels and fixtures as included in this Agreement of Purchase and Sale will be in good working order and free from all liens and encumbrances on completion. The Seller warrants that all the mechanical, electrical, heating and all other equipment on the real property shall be in good working order on completion."
+        </div>
+      </div>
+
+      <div class="compare-block">
+        <div class="block-label problem">Problem</div>
+        <p class="problem-text">This is the <strong>#1 source of post-closing complaints</strong> in Ontario residential transactions. "Good working order" is a subjective standard. The buyer does the walkthrough, finds the dishwasher rattling or a burner not lighting, and demands a credit on closing day. With a fully renovated home, you have brand-new appliances <strong>plus</strong> the older HVAC/furnace — different ages, different risk profiles.</p>
+      </div>
+
+      <div class="compare-block">
+        <div class="block-label tightened">Tightened Version</div>
+        <div class="quote-tightened">
+          "The Seller represents and warrants that, <strong>as of the date of acceptance of this Agreement</strong>, the chattels and fixtures included in this Agreement and the mechanical, electrical, plumbing, and heating systems on the property are in <strong>operational condition</strong> for their intended use, <strong>subject to normal wear and tear consistent with their age</strong>. The Buyer acknowledges that the property includes both newly installed and pre-existing systems and equipment of varying ages, and the Seller makes <strong>no warranty as to the remaining useful life, efficiency, or future performance</strong> of any chattel, fixture, or system. This representation <strong>shall not survive closing</strong> and shall be deemed satisfied if the chattels, fixtures, and systems are in operational condition on the date of the Buyer's pre-closing walkthrough. <strong>The Seller's obligation under this clause shall not exceed five hundred dollars ($500.00) per item</strong> in the event of any pre-closing failure."
+        </div>
+      </div>
+
+      <div class="compare-block">
+        <div class="block-label benefit">Why This Helps</div>
+        <ul class="benefit-list">
+          <li>"Operational" is more defensible than "good working order"</li>
+          <li>"Subject to normal wear and tear" matches reality</li>
+          <li>No survival = no post-closing claims</li>
+          <li>Per-item cap prevents demands for $3,000 fridge motors</li>
+          <li>Acknowledges mixed-age equipment — critical given a recent reno over older systems</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============== MEDIUM PRIORITY ============== -->
+  <div class="priority-group">
+    <div class="priority-group-header">
+      <span class="priority-banner priority-medium">Medium Priority</span>
+      <h3>Worth Tightening</h3>
+    </div>
+
+    <!-- Recommendation 4 -->
+    <div class="recommendation">
+      <h4>4. Suicide / Murder / Illegal Use Representation</h4>
+      <div class="clause-tag">Clause: Stigma representation</div>
+
+      <div class="compare-block">
+        <div class="block-label original">Original Clause</div>
+        <div class="quote-original">
+          "Seller represents and warrants that, to the best of their knowledge and belief, that there have been no suicides or murder on the property at any time and that no part of the property has been used for any illegal/criminal purpose."
+        </div>
+      </div>
+
+      <div class="compare-block">
+        <div class="block-label problem">Problem</div>
+        <p class="problem-text">"At any time" — your sellers can only know what happened during their ownership. They cannot warrant 1950 to whenever they bought. Also, indefinite survival.</p>
+      </div>
+
+      <div class="compare-block">
+        <div class="block-label tightened">Tightened Version</div>
+        <div class="quote-tightened">
+          "The Seller represents and warrants, to the best of the Seller's actual knowledge and belief, that <strong>during the period of the Seller's ownership of the property</strong>, there has been no suicide or homicide on the property and no part of the property has been used for any illegal purpose. The Seller makes <strong>no representation</strong> as to any period prior to the Seller's ownership. This representation shall survive closing for a period of <strong>one hundred eighty (180) days</strong> only."
+        </div>
+      </div>
+    </div>
+
+    <!-- Recommendation 5 -->
+    <div class="recommendation">
+      <h4>5. Cannabis Warranty — Cap the Survival</h4>
+      <div class="clause-tag">Clause: Cannabis cultivation</div>
+
+      <div class="compare-block">
+        <div class="block-label problem">Problem</div>
+        <p class="problem-text">The clause is reasonably drafted, but survival is indefinite. Cannabis grow-op damage (mold, electrical) can manifest over time, but indefinite is too long.</p>
+      </div>
+
+      <div class="compare-block">
+        <div class="block-label tightened">Add to End of Clause</div>
+        <div class="quote-tightened">
+          "This warranty shall survive closing for a period of <strong>one (1) year</strong> only."
+        </div>
+      </div>
+    </div>
+
+    <!-- Recommendation 6 -->
+    <div class="recommendation">
+      <h4>6. Survey Clause — Currently Vague</h4>
+      <div class="clause-tag">Clause: Existing survey</div>
+
+      <div class="compare-block">
+        <div class="block-label original">Original Clause</div>
+        <div class="quote-original">
+          "The Seller agrees to provide to the buyers solicitor before completion date an existing survey if in the possession of the seller, of said property showing the current location of all structures, buildings, fences, improvements, easements, rights-of-way, and encroachments affecting said property."
+        </div>
+      </div>
+
+      <div class="compare-block">
+        <div class="block-label problem">Problem</div>
+        <p class="problem-text">The clause implies the survey will show "current" conditions — but an old survey may not reflect the current state. If the seller provides a 1995 survey and the buyer relies on it, exposure follows.</p>
+      </div>
+
+      <div class="compare-block">
+        <div class="block-label tightened">Tightened Version</div>
+        <div class="quote-tightened">
+          "The Seller agrees to provide to the Buyer's solicitor before the completion date a copy of any existing survey of the property in the Seller's possession, <strong>if any</strong>. The Buyer acknowledges that <strong>any such survey is provided for reference only</strong>, may not reflect current conditions or improvements, and the Seller makes <strong>no representation or warranty</strong> as to the accuracy, completeness, or currency of any survey provided. <strong>The Buyer is advised to obtain an up-to-date Surveyor's Real Property Report at the Buyer's own expense</strong> if a current survey is required. If no survey is in the Seller's possession, the Seller shall have no obligation to obtain one."
+        </div>
+      </div>
+    </div>
+
+    <!-- Recommendation 7 -->
+    <div class="recommendation">
+      <h4>7. Two Further Viewings — Needs Reasonable Limits</h4>
+      <div class="clause-tag">Clause: Pre-closing viewings</div>
+
+      <div class="compare-block">
+        <div class="block-label original">Original Clause</div>
+        <div class="quote-original">
+          "The Buyer shall have the right to view the subject property two (2) further times before the completion date."
+        </div>
+      </div>
+
+      <div class="compare-block">
+        <div class="block-label problem">Problem</div>
+        <p class="problem-text">No notice requirement, no time limit, no scope. Buyer could show up Sunday at 8 a.m. with a contractor and an interior designer for 3 hours each visit.</p>
+      </div>
+
+      <div class="compare-block">
+        <div class="block-label tightened">Tightened Version</div>
+        <div class="quote-tightened">
+          "The Buyer shall have the right to view the subject property up to two (2) further times before the completion date, <strong>upon reasonable prior notice of not less than twenty-four (24) hours</strong> to the Seller or the Listing Brokerage, at mutually agreeable times <strong>during daylight hours</strong>, <strong>each viewing not to exceed one (1) hour in duration</strong>. The Buyer agrees that these viewings are for the purpose of confirming the condition of the property and <strong>shall not be used for the purpose of conducting trade inspections, contractor estimates, measurements for renovations, or design consultations</strong> without the Seller's prior written consent."
+        </div>
+      </div>
+    </div>
+
+    <!-- Recommendation 8 -->
+    <div class="recommendation">
+      <h4>8. Maintenance Obligation — Currently Open-Ended</h4>
+      <div class="clause-tag">Clause: Pre-closing maintenance</div>
+
+      <div class="compare-block">
+        <div class="block-label original">Original Clause</div>
+        <div class="quote-original">
+          "The Seller agrees to maintain the property in the same condition as it was upon the initial inspection by the Buyer. Snow removal, lawn and garden upkeep, repairs to included chattels and fixtures as necessary, and all other normal maintenance requirements to be completed at Seller's expense until completion date."
+        </div>
+      </div>
+
+      <div class="compare-block">
+        <div class="block-label problem">Problem</div>
+        <p class="problem-text">"Repairs to included chattels and fixtures as necessary" — this could be read as obligating the seller to <strong>repair anything that breaks</strong> between acceptance and closing. That is not what is intended.</p>
+      </div>
+
+      <div class="compare-block">
+        <div class="block-label tightened">Tightened Version</div>
+        <div class="quote-tightened">
+          "The Seller agrees to maintain the property in <strong>substantially the same condition</strong> as it was upon the Buyer's initial inspection, <strong>subject to reasonable wear and tear</strong>, until the completion date. The Seller shall be responsible for snow removal and lawn and garden upkeep at the Seller's expense until completion. <strong>In the event any chattel, fixture, or system fails or breaks down between the date of acceptance and the completion date, the Seller's obligation shall be limited to disclosing such failure to the Buyer, and the Seller shall not be obligated to repair or replace such item.</strong> The Buyer's sole remedy in such event shall be to <strong>either accept the property in its then-current condition or to negotiate an abatement of the purchase price</strong>, not to exceed <strong>five hundred dollars ($500.00) per affected item</strong>."
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============== ADDITIONAL CLAUSES ============== -->
+  <div class="priority-group">
+    <div class="priority-group-header">
+      <span class="priority-banner priority-add">Add to Schedule</span>
+      <h3>Additional Protective Clauses</h3>
+    </div>
+
+    <p style="font-size: 14px; color: var(--gray-text); margin-bottom: 24px;">
+      Given the <strong>2026 top-to-bottom renovation</strong> on this property, the following clauses provide additional protection for the seller and should be considered for inclusion in Schedule A.
+    </p>
+
+    <!-- Recommendation 9 -->
+    <div class="recommendation">
+      <h4>9. Renovation Disclaimer</h4>
+      <div class="clause-tag">New clause · Specific to recent renovations</div>
+
+      <div class="compare-block">
+        <div class="block-label tightened">Proposed Clause</div>
+        <div class="quote-tightened">
+          "The Buyer acknowledges that the property has undergone recent renovations and improvements. The Seller represents that, to the best of the Seller's actual knowledge, all renovation work was performed in a workmanlike manner, <strong>but makes no representation or warranty</strong> as to whether such work was performed with permits, complies with current Ontario Building Code, or matches the conditions that may exist behind finished surfaces. <strong>The Buyer accepts the renovated portions of the property in their as-is condition</strong> and is advised to satisfy themselves through inspection prior to firming up this Agreement. This clause shall survive closing."
+        </div>
+      </div>
+    </div>
+
+    <!-- Recommendation 10 -->
+    <div class="recommendation">
+      <h4>10. As-Is / No Further Representations</h4>
+      <div class="clause-tag">New clause · Most protective addition</div>
+
+      <div class="compare-block">
+        <div class="block-label benefit">Why This Matters</div>
+        <p class="problem-text">This is the <strong>single most protective clause</strong> you can add. It cuts off "but the listing said…" and "but you told us…" arguments at the knees.</p>
+      </div>
+
+      <div class="compare-block">
+        <div class="block-label tightened">Proposed Clause</div>
+        <div class="quote-tightened">
+          "Except for the express representations and warranties set out in this Schedule A, <strong>the property is being sold on an 'as is, where is' basis</strong>. The Buyer acknowledges that the Buyer has had full opportunity to inspect the property, and <strong>no representations, warranties, or conditions, express or implied, statutory or otherwise, have been made by the Seller or the Seller's agents</strong> regarding the property other than those expressly set out in this Agreement. The Buyer is not relying on any verbal statements, MLS listing information, marketing materials, or representations of the Listing Brokerage or its representatives in entering into this Agreement."
+        </div>
+      </div>
+    </div>
+
+    <!-- Recommendation 11 -->
+    <div class="recommendation">
+      <h4>11. Pre-Closing Walkthrough Is the Cutoff</h4>
+      <div class="clause-tag">New clause · Closes the post-closing claims window</div>
+
+      <div class="compare-block">
+        <div class="block-label tightened">Proposed Clause</div>
+        <div class="quote-tightened">
+          "The Buyer's pre-closing walkthrough shall be conducted no later than <strong>forty-eight (48) hours</strong> prior to the completion date. <strong>Any concerns regarding the condition of the property, chattels, fixtures, or systems must be raised in writing prior to the completion date.</strong> Failure to raise any such concern in writing prior to the completion date shall be deemed acceptance of the condition of the property, and the Buyer shall have no claim against the Seller in respect of such condition after closing, save and except for matters expressly surviving closing under this Agreement."
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============== SUMMARY BOX ============== -->
+  <div class="summary-box">
+    <h3>Practical Recommendation — Priority Order</h3>
+    <p style="margin: 0 0 14px 0; font-size: 14px; color: rgba(255,255,255,0.85);">
+      Prioritize these in your counter-offer or seller-side Schedule A:
+    </p>
+    <ol>
+      <li><strong>Add survival caps</strong> to all surviving warranties (90 days for hidden defects and water; 180 days for suicide/illegal; 1 year for cannabis)</li>
+      <li><strong>Tighten the "good working order" clause</strong> to "operational" with the $500/item cap and no survival</li>
+      <li><strong>Add the "as-is / no further representations" clause</strong> (#10) — the big one</li>
+      <li><strong>Add the renovation disclaimer</strong> (#9) given the 2026 reno</li>
+      <li><strong>Tighten the survey clause</strong> (#6) — important if the lot is at all irregular</li>
+      <li><strong>Add notice and duration limits</strong> to further viewings (#7)</li>
+    </ol>
+  </div>
+
+  <!-- ============== NEGOTIATION NOTE ============== -->
+  <div class="negotiation-note">
+    <h4>A Note on Negotiation Reality</h4>
+    <p style="margin: 0;">
+      Some of this language is aggressive, and a buyer's agent will push back on the more seller-favourable terms — especially the survival caps and the per-item cap. That's normal. The goal is to <strong>start tight and negotiate from a position of strength</strong>, not to expect every clause to land verbatim. In multiple-offer situations, you can often get most of these accepted; in a softer negotiation, you may compromise on survival periods (e.g., 6 months instead of 90 days).
+    </p>
+  </div>
+
+  <!-- ============== FOOTER ============== -->
+  <div class="footer">
+    <div class="name">PETER LUO &nbsp;·&nbsp; SRS · MCNE · FRI</div>
+    <div style="margin-top: 6px;">RE/MAX REALTRON REALTY INC., BROKERAGE &nbsp;·&nbsp; PETERLUO.HOMES</div>
+    <div class="disclaimer">
+      This document is provided for informational and discussion purposes between the listing agent and the seller client. It is not legal advice. All clause language should be reviewed and approved by a qualified Ontario real estate lawyer before insertion into a binding Agreement of Purchase and Sale.
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
