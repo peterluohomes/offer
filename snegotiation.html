@@ -37,6 +37,12 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);
 .cond-table input{width:100%;border:1px solid var(--border);border-radius:5px;padding:7px 8px;font-size:13px;color:var(--text);background:var(--cream);outline:none;min-height:36px}
 .cond-table .days-inp{width:50px;text-align:center;font-family:'DM Mono',monospace}
 .cond-table .date-inp{font-family:'DM Mono',monospace;font-size:12px}
+.cond-table .cond-revise td{padding:0 8px 8px 8px;border-bottom:1px solid var(--cream2)}
+.cond-revise-box{background:#fffaf0;border-left:3px solid var(--gold);border-radius:4px;padding:6px 10px;font-size:11px;line-height:1.5;color:var(--text)}
+.cond-revise-box .rev-label{font-size:9px;font-weight:700;color:var(--gold);letter-spacing:.8px;text-transform:uppercase;margin-right:6px}
+.cond-revise-box .rev-strike{color:#999;text-decoration:line-through;margin-right:4px}
+.cond-revise-box .rev-arrow{color:var(--muted);margin:0 4px}
+.cond-revise-box .rev-new{color:var(--navy);font-weight:600}
 .clause-row{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--cream2)}
 .clause-row:last-child{border-bottom:none}
 .clause-num{font-family:'DM Mono',monospace;font-size:12px;color:var(--gold);font-weight:600;min-width:24px;text-align:center}
@@ -285,8 +291,11 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);
     <table class="cond-table"><thead><tr><th style="width:28px">#</th><th>Condition</th><th style="width:60px">Days</th><th style="width:130px">Date</th></tr></thead>
     <tbody id="cond-body">
       <tr><td class="cond-num">1</td><td><input type="text" placeholder="e.g. Financing"></td><td><input type="text" class="days-inp"></td><td><input type="date" class="date-inp"></td></tr>
+      <tr class="cond-revise"><td></td><td colspan="3"><div class="cond-revise-box"><span class="rev-label">Revise</span><span class="rev-strike">sole and absolute discretion</span><span class="rev-arrow">→</span><span class="rev-new">acting reasonably, diligently, and in good faith</span></div></td></tr>
       <tr><td class="cond-num">2</td><td><input type="text" placeholder="e.g. Home Inspection"></td><td><input type="text" class="days-inp"></td><td><input type="date" class="date-inp"></td></tr>
+      <tr class="cond-revise"><td></td><td colspan="3"><div class="cond-revise-box"><span class="rev-label">Revise</span><span class="rev-new">report disclosing no major deficiency in structure or foundation, and no health or safety hazard</span></div></td></tr>
       <tr><td class="cond-num">3</td><td><input type="text" placeholder="e.g. Status Certificate"></td><td><input type="text" class="days-inp"></td><td><input type="date" class="date-inp"></td></tr>
+      <tr class="cond-revise"><td></td><td colspan="3"><div class="cond-revise-box"><span class="rev-label">Revise</span><span class="rev-strike">sole and absolute discretion</span><span class="rev-arrow">→</span><span class="rev-new">acting reasonably, diligently, and in good faith</span></div></td></tr>
       <tr><td class="cond-num">4</td><td><input type="text"></td><td><input type="text" class="days-inp"></td><td><input type="date" class="date-inp"></td></tr>
       <tr><td class="cond-num">5</td><td><input type="text"></td><td><input type="text" class="days-inp"></td><td><input type="date" class="date-inp"></td></tr>
     </tbody></table>
@@ -1005,7 +1014,7 @@ var FF=['f-property','f-frontage','f-depth','f-seller','f-buyers','f-agent','f-a
 
 function gatherData(){
   var d={};FF.forEach(function(id){var e=document.getElementById(id);d[id]=e?e.value:'';});
-  d.conditions=[];document.querySelectorAll('#cond-body tr').forEach(function(tr){var i=tr.querySelectorAll('input');d.conditions.push({text:i[0]?i[0].value:'',days:i[1]?i[1].value:'',date:i[2]?i[2].value:''});});
+  d.conditions=[];document.querySelectorAll('#cond-body tr:not(.cond-revise)').forEach(function(tr){var i=tr.querySelectorAll('input');d.conditions.push({text:i[0]?i[0].value:'',days:i[1]?i[1].value:'',date:i[2]?i[2].value:''});});
   d.clauses=[];document.querySelectorAll('#clause-body textarea').forEach(function(t){d.clauses.push(t.value);});
   d.checks={};document.querySelectorAll('.checklist input[type="checkbox"]').forEach(function(cb){d.checks[cb.getAttribute('data-ck')]=cb.checked;});
   d.itemNotes={};document.querySelectorAll('.item-note').forEach(function(ta){var key=ta.getAttribute('data-note-key');if(key&&ta.value.trim())d.itemNotes[key]=ta.value;});
@@ -1016,7 +1025,7 @@ function gatherData(){
 
 function applyData(d){
   FF.forEach(function(id){var e=document.getElementById(id);if(e&&d[id]!==undefined)e.value=d[id];});
-  if(d.conditions){var rows=document.querySelectorAll('#cond-body tr');d.conditions.forEach(function(c,i){if(!rows[i])return;var inp=rows[i].querySelectorAll('input');if(inp[0])inp[0].value=c.text||'';if(inp[1])inp[1].value=c.days||'';if(inp[2])inp[2].value=c.date||'';});}
+  if(d.conditions){var rows=document.querySelectorAll('#cond-body tr:not(.cond-revise)');d.conditions.forEach(function(c,i){if(!rows[i])return;var inp=rows[i].querySelectorAll('input');if(inp[0])inp[0].value=c.text||'';if(inp[1])inp[1].value=c.days||'';if(inp[2])inp[2].value=c.date||'';});}
   if(d.clauses){var tas=document.querySelectorAll('#clause-body textarea');d.clauses.forEach(function(c,i){if(tas[i])tas[i].value=c;});}
   if(d.checks){document.querySelectorAll('.checklist input[type="checkbox"]').forEach(function(cb){var key=cb.getAttribute('data-ck');if(d.checks[key]){cb.checked=true;cb.closest('li').classList.add('checked-item');}else{cb.checked=false;cb.closest('li').classList.remove('checked-item');}});}
   if(d.itemNotes){document.querySelectorAll('.item-note').forEach(function(ta){var key=ta.getAttribute('data-note-key');ta.value=d.itemNotes[key]||'';});}
@@ -1047,7 +1056,7 @@ function clearForm(){
 /* ===== PRINT ===== */
 function prepPrint(){
   document.querySelectorAll('#clause-body .clause-row').forEach(function(row){var ta=row.querySelector('textarea');row.classList.toggle('print-hide',!ta||!ta.value.trim());});
-  document.querySelectorAll('#cond-body tr').forEach(function(tr){var inputs=tr.querySelectorAll('input');var hasData=false;for(var i=0;i<inputs.length;i++){if(inputs[i].value.trim()){hasData=true;break;}}tr.classList.toggle('print-hide',!hasData);});
+  document.querySelectorAll('#cond-body tr:not(.cond-revise)').forEach(function(tr){var inputs=tr.querySelectorAll('input');var hasData=false;for(var i=0;i<inputs.length;i++){if(inputs[i].value.trim()){hasData=true;break;}}tr.classList.toggle('print-hide',!hasData);var next=tr.nextElementSibling;if(next&&next.classList.contains('cond-revise'))next.classList.toggle('print-hide',!hasData);});
   var incl=document.getElementById('f-incl');var excl=document.getElementById('f-excl');
   if(incl)incl.closest('.field').classList.toggle('print-hide',!incl.value.trim());
   if(excl)excl.closest('.field').classList.toggle('print-hide',!excl.value.trim());
