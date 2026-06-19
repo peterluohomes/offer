@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>Multiple Offers Tracking</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -73,6 +73,11 @@ table.mt input.mono{font-family:'DM Mono',monospace;font-size:11px}
 </style>
 </head>
 <body>
+<div id="sync-bar" style="display:flex;align-items:center;gap:10px;justify-content:center;padding:calc(6px + env(safe-area-inset-top)) 10px 6px;font:13px/1.3 system-ui,-apple-system,sans-serif;background:rgba(0,0,0,.06)">
+  <button id="sync-signin" onclick="PinnacleSync && PinnacleSync.signIn()" style="border:0;border-radius:8px;padding:6px 12px;background:#1a73e8;color:#fff;font-weight:600;cursor:pointer">Sign in to sync</button>
+  <button id="sync-refresh" onclick="PinnacleSync_refresh()" style="display:none;border:0;border-radius:8px;padding:6px 12px;background:#c9a84c;color:#1a2b4a;font-weight:700;cursor:pointer">New data — tap to refresh</button>
+  <span id="sync-status" style="opacity:.7">Not signed in</span>
+</div>
 <div class="hdr"><h1>Multiple Offers Tracking</h1><p>Pinnacle Listing System</p></div>
 
 <div class="prop-bar">
@@ -174,12 +179,14 @@ function showSaveStatus(msg,ok){
   el.className='save-indicator'+(ok?' saved':'');
 }
 
+var _syncBooted=false;
 function autoSave(){
   if(saveTimer)clearTimeout(saveTimer);
   saveTimer=setTimeout(function(){
     var data=gatherAll();
     dbPut(RECORD_KEY,data).then(function(){
       showSaveStatus('Saved',true);
+      if(_syncBooted){ try{localStorage.setItem('moffer_syncSavedAt',new Date().toISOString());}catch(e){} if(window.PinnacleSync)PinnacleSync.notifyChanged(); }
     }).catch(function(e){
       showSaveStatus('Save failed',false);
       console.error('Auto-save error:',e);
@@ -487,18 +494,84 @@ function prepPrint(){
 /* ===== INIT ===== */
 offers=[makeOffer(),makeOffer()];offerCount=2;
 
+/* ── CLOUD SYNC (works with /firebase-sync.js) ── */
+function _syncHasData(){
+  try{
+    var d = gatherAll();
+    if((d.property||'').trim() || (d.seller||'').trim() || (d.frontage||'').trim() || (d.depth||'').trim()) return true;
+    if(d.irrg) return true;
+    var offs = d.offers||[];
+    if(offs.length !== 2) return true;
+    for(var i=0;i<offs.length;i++){
+      var o = offs[i]||{};
+      for(var k in o){
+        if(!o.hasOwnProperty(k)) continue;
+        if(k==='irrv-date'||k==='irrv-time') continue;   // fresh-sheet defaults
+        var v = o[k];
+        if(v===true) return true;
+        if(typeof v==='string' && v.trim()!=='') return true;
+        if(typeof v==='number' && v!==0) return true;
+        if(Array.isArray(v) && v.length) return true;
+      }
+    }
+    return false;
+  }catch(e){ return false; }
+}
+function _syncApplyData(data){
+  if(!data) return;
+  document.getElementById('g-property').value=data.property||'';
+  document.getElementById('g-frontage').value=data.frontage||'';
+  document.getElementById('g-depth').value=data.depth||'';
+  document.getElementById('g-irrg').checked=!!data.irrg;
+  document.getElementById('g-seller').value=data.seller||'';
+  if(data.offers&&data.offers.length>0){ offers=data.offers; offerCount=offers.length; }
+  render();
+}
+function _syncAdopt(rec){
+  if(!rec || !rec.data) return;
+  _syncApplyData(rec.data);
+  try{ localStorage.setItem('moffer_syncSavedAt', rec.savedAt || new Date().toISOString()); }catch(e){}
+  if(db){ try{ dbPut(RECORD_KEY, gatherAll()); }catch(e){} }
+}
+function PinnacleSync_refresh(){
+  var p = window.__SYNC && window.__SYNC._pending;
+  if(p){ _syncAdopt(p); window.__SYNC._pending = null; }
+  var b=document.getElementById('sync-refresh'); if(b) b.style.display='none';
+  var st=document.getElementById('sync-status'); if(st) st.textContent='Synced ✓';
+}
+window.__SYNC = {
+  toolName: 'moffer',
+  _pending: null,
+  getData: function(){
+    if(!_syncHasData()) return null;
+    var ts=''; try{ ts=localStorage.getItem('moffer_syncSavedAt')||''; }catch(e){}
+    if(!ts){ ts=new Date().toISOString(); try{ localStorage.setItem('moffer_syncSavedAt', ts); }catch(e){} }
+    return { data: gatherAll(), savedAt: ts };
+  },
+  apply: function(rec){
+    if(!rec || !rec.data) return;
+    if(!_syncHasData()){ _syncAdopt(rec); return; }   // empty/default device adopts cloud
+    window.__SYNC._pending = rec;                      // has data: don't disrupt active edits
+    var b=document.getElementById('sync-refresh'); if(b) b.style.display='';
+    var st=document.getElementById('sync-status'); if(st) st.textContent='New data available';
+  }
+};
+
 openDB().then(function(){
   return autoLoad();
 }).then(function(loaded){
   render();
   showSaveStatus('Auto-save on',true);
+  _syncBooted=true;
 }).catch(function(e){
   console.error('DB init error:',e);
   render();
   showSaveStatus('Auto-save off',false);
+  _syncBooted=true;
 });
 
 setInterval(function(){for(var i=0;i<offerCount;i++)updChecks(i);},60000);
 </script>
+<script type="module" src="/firebase-sync.js"></script>
 </body>
 </html>

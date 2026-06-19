@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>Offer Check, Seller Communication and Negotiation</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -178,6 +178,11 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);
 </style>
 </head>
 <body>
+<div id="sync-bar" style="display:flex;align-items:center;gap:10px;justify-content:center;padding:calc(6px + env(safe-area-inset-top)) 10px 6px;font:13px/1.3 system-ui,-apple-system,sans-serif;background:rgba(0,0,0,.06)">
+  <button id="sync-signin" onclick="PinnacleSync && PinnacleSync.signIn()" style="border:0;border-radius:8px;padding:6px 12px;background:#1a73e8;color:#fff;font-weight:600;cursor:pointer">Sign in to sync</button>
+  <button id="sync-refresh" onclick="PinnacleSync_refresh()" style="display:none;border:0;border-radius:8px;padding:6px 12px;background:#c9a84c;color:#1a2b4a;font-weight:700;cursor:pointer">New data — tap to refresh</button>
+  <span id="sync-status" style="opacity:.7">Not signed in</span>
+</div>
 <div class="page-header"><h1>Offer Check, Seller Communication and Negotiation</h1><p>Pinnacle Listing System</p></div>
 <div class="container">
 
@@ -823,7 +828,8 @@ function dbGet(key){return new Promise(function(resolve,reject){if(!db){reject('
 function dbDelete(key){return new Promise(function(resolve,reject){if(!db){reject('DB not open');return;}var tx=db.transaction(STORE_NAME,'readwrite');var store=tx.objectStore(STORE_NAME);var req=store.delete(key);req.onsuccess=function(){resolve();};req.onerror=function(e){reject(e);};});}
 
 function showSaveStatus(msg,ok){var el=document.getElementById('save-status');el.textContent='● '+msg;el.className='save-indicator'+(ok?' saved':'');}
-function autoSave(){if(saveTimer)clearTimeout(saveTimer);saveTimer=setTimeout(function(){var data=gatherData();dbPut(RECORD_KEY,data).then(function(){showSaveStatus('Saved',true);}).catch(function(e){showSaveStatus('Save failed',false);console.error('Auto-save error:',e);});},400);}
+var _syncBooted=false;
+function autoSave(){if(saveTimer)clearTimeout(saveTimer);saveTimer=setTimeout(function(){var data=gatherData();dbPut(RECORD_KEY,data).then(function(){showSaveStatus('Saved',true);if(_syncBooted){try{localStorage.setItem('snegotiation_syncSavedAt',new Date().toISOString());}catch(e){}if(window.PinnacleSync)PinnacleSync.notifyChanged();}}).catch(function(e){showSaveStatus('Save failed',false);console.error('Auto-save error:',e);});},400);}
 function dbg(msg){var el=document.getElementById('debug');el.style.display='block';el.textContent=msg;}
 
 /* ===== TIME DROPDOWN ===== */
@@ -1071,12 +1077,57 @@ function prepPrint(){
   setTimeout(function(){window.print();setTimeout(function(){document.querySelectorAll('.print-hide').forEach(function(el){el.classList.remove('print-hide');});},500);},100);
 }
 
+/* ── CLOUD SYNC (works with /firebase-sync.js) ── */
+function _syncNonEmpty(v){
+  if(v==null) return false;
+  if(typeof v==='string') return v.trim()!=='';
+  if(typeof v==='boolean') return v===true;
+  if(typeof v==='number') return v!==0;
+  if(Array.isArray(v)) return v.some(_syncNonEmpty);
+  if(typeof v==='object') return Object.keys(v).some(function(k){ return _syncNonEmpty(v[k]); });
+  return !!v;
+}
+function _syncHasData(){ try{ return _syncNonEmpty(gatherData()); }catch(e){ return false; } }
+function _syncAdopt(rec){
+  if(!rec || !rec.data) return;
+  applyData(rec.data);
+  if(typeof updateProgress==='function') updateProgress();
+  if(typeof showSavedNotes==='function') showSavedNotes();
+  try{ localStorage.setItem('snegotiation_syncSavedAt', rec.savedAt || new Date().toISOString()); }catch(e){}
+  if(db){ try{ dbPut(RECORD_KEY, gatherData()); }catch(e){} }
+}
+function PinnacleSync_refresh(){
+  var p = window.__SYNC && window.__SYNC._pending;
+  if(p){ _syncAdopt(p); window.__SYNC._pending = null; }
+  var b=document.getElementById('sync-refresh'); if(b) b.style.display='none';
+  var st=document.getElementById('sync-status'); if(st) st.textContent='Synced ✓';
+}
+window.__SYNC = {
+  toolName: 'snegotiation',
+  _pending: null,
+  getData: function(){
+    if(!_syncHasData()) return null;
+    var ts=''; try{ ts=localStorage.getItem('snegotiation_syncSavedAt')||''; }catch(e){}
+    if(!ts){ ts=new Date().toISOString(); try{ localStorage.setItem('snegotiation_syncSavedAt', ts); }catch(e){} }
+    return { data: gatherData(), savedAt: ts };
+  },
+  apply: function(rec){
+    if(!rec || !rec.data) return;
+    if(!_syncHasData()){ _syncAdopt(rec); return; }   // empty device adopts cloud
+    window.__SYNC._pending = rec;                      // has data: don't disrupt active edits
+    var b=document.getElementById('sync-refresh'); if(b) b.style.display='';
+    var st=document.getElementById('sync-status'); if(st) st.textContent='New data available';
+  }
+};
+
 /* ===== INIT ===== */
 openDB().then(function(){return dbGet(RECORD_KEY);}).then(function(data){
   if(data){applyData(data);}
   updateProgress();showSavedNotes();
   showSaveStatus('Auto-save on',true);
-}).catch(function(e){console.error('DB init error:',e);showSaveStatus('Auto-save off',false);});
+  _syncBooted=true;
+}).catch(function(e){console.error('DB init error:',e);showSaveStatus('Auto-save off',false);_syncBooted=true;});
 </script>
+<script type="module" src="/firebase-sync.js"></script>
 </body>
 </html>
